@@ -1,1 +1,1 @@
-# DroneVR
+# DroneFlyingVR
