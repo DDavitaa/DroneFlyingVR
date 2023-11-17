@@ -28,7 +28,7 @@ adjustment_saturation = 2.6
 [node name="root" type="Node3D"]
 
 [node name="CAMERA" type="Camera3D" parent="."]
-transform = Transform3D(0.980292, 0, 0.197555, 0, 1, 0, -0.197555, 0, 0.980292, 1.7724, 3.15794, 5.95883)
+transform = Transform3D(0.980292, 0, 0.197555, 0, 1, 0, -0.197555, 0, 0.980292, 1.7724, 0.659387, 5.95883)
 current = true
 
 [node name="Ground - StaticBody3D" type="StaticBody3D" parent="."]
@@ -53,7 +53,16 @@ skeleton = NodePath("../..")
 
 [node name="drone fbx" parent="Drone - RigidBody3D/Drone - MeshInstance3D" instance=ExtResource("1_sdhml")]
 
-[node name="Drone - CollisionPolygon3D" type="CollisionPolygon3D" parent="Drone - RigidBody3D"]
-transform = Transform3D(1, 0, 0, 0, 0.991445, -0.130526, 0, 0.130526, 0.991445, 0, 0, 0)
-depth = 2.015
-polygon = PackedVector2Array(-0.517731, 0.238809, -1.81976, 0.210591, -1.81976, -0.0151467, -0.441142, -0.107861, -0.360521, -0.252978, 0.401345, -0.248947, 0.469873, -0.0836744, 1.81221, -0.035302, 1.78802, 0.20253, 0.494059, 0.24284, 0.320725, 0.440361, -0.291993, 0.440361)
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Drone - RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 1.12844, -0.046453, -0.0920194)
+depth = 0.165
+polygon = PackedVector2Array(-0.0893041, 0.763616, -0.698407, 0.319239, -0.610297, -0.420112, 0.0600983, -0.726579, 0.676863, -0.282202, 0.584922, 0.464811)
+
+[node name="CollisionPolygon3D2" type="CollisionPolygon3D" parent="Drone - RigidBody3D"]
+transform = Transform3D(0.976481, 0.215605, 9.42438e-09, 0, -4.37114e-08, 1, 0.215605, -0.976481, -4.26833e-08, -1.128, -0.046, -0.046)
+depth = 0.165
+polygon = PackedVector2Array(-0.0902528, 0.804177, -0.684194, 0.359064, -0.598522, -0.376047, 0.0826526, -0.673117, 0.678156, -0.235076, 0.595117, 0.510505)
+
+[node name="CollisionPolygon3D3" type="CollisionPolygon3D" parent="Drone - RigidBody3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+polygon = PackedVector2Array(0.287065, 0.20322, 0.805759, 0.0767089, 0.9182, -0.0404871, 0.891153, -0.261707, 0.356646, -0.324962, 0.35609, -0.405395, 0.255007, -0.40393, 0.231568, -0.324821, -0.326512, -0.271195, -0.773405, -0.147559, -0.776335, -0.401, -0.848118, -0.402465, -0.848118, -0.128515, -0.909647, -0.0977502, -0.883278, 0.268493)
