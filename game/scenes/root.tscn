@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c4mac68g6eja"]
+[gd_scene load_steps=26 format=3 uid="uid://c4mac68g6eja"]
 
 [ext_resource type="Script" path="res://scenes/root.gd" id="1_drtle"]
 [ext_resource type="PackedScene" uid="uid://bjh6o1j0m2p0u" path="res://models/drone.fbx" id="1_sdhml"]
@@ -10,7 +10,11 @@
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="8_0i7al"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="8_utqbe"]
 [ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="10_hlrtx"]
+[ext_resource type="PackedScene" uid="uid://dlg5g0b3hj2k6" path="res://models/controller_right.fbx" id="10_lclre"]
 [ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="10_v7mpg"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="12_rovoh"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="13_b0n03"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="13_trql2"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_yxwyt"]
 panorama = ExtResource("2_w8hha")
@@ -42,6 +46,9 @@ height = 1.33654
 
 [sub_resource type="BoxMesh" id="BoxMesh_qye2y"]
 
+[sub_resource type="Resource" id="Resource_841gg"]
+script = ExtResource("13_b0n03")
+
 [node name="root" type="Node3D"]
 script = ExtResource("1_drtle")
 
@@ -59,32 +66,6 @@ transform = Transform3D(1.745, 0, 0, 0, 1.745, 0, 0, 0, 1.745, 0, 0, 0)
 mesh = SubResource("PlaneMesh_ri7pf")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_1ifvy")
-
-[node name="Drone - RigidBody3D" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.824955, -3.09853)
-visible = false
-
-[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Drone - RigidBody3D"]
-transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 0.226011, -0.046453, -0.0182629)
-visible = false
-depth = 0.165
-polygon = PackedVector2Array(-0.0893041, 0.763616, -0.698407, 0.319239, -0.610297, -0.420112, 0.0600983, -0.726579, 0.676863, -0.282202, 0.584922, 0.464811)
-
-[node name="CollisionPolygon3D2" type="CollisionPolygon3D" parent="Drone - RigidBody3D"]
-transform = Transform3D(0.195296, 0.043121, 1.88488e-09, 0, -8.74228e-09, 0.2, 0.043121, -0.195296, -8.53667e-09, -0.22523, -0.046, -0.00903416)
-visible = false
-depth = 0.165
-polygon = PackedVector2Array(-0.0902528, 0.804177, -0.684194, 0.359064, -0.598522, -0.376047, 0.0826526, -0.673117, 0.678156, -0.235076, 0.595117, 0.510505)
-
-[node name="CollisionPolygon3D3" type="CollisionPolygon3D" parent="Drone - RigidBody3D"]
-transform = Transform3D(-8.74228e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.74228e-09, 0, 0, 0)
-visible = false
-depth = 0.835
-polygon = PackedVector2Array(0.287065, 0.20322, 0.92293, 0.0366125, 0.891153, -0.261707, 0.356646, -0.324962, 0.35609, -0.405395, 0.255007, -0.40393, 0.231568, -0.324821, -0.326512, -0.271195, -0.773405, -0.147559, -0.776335, -0.401, -0.848118, -0.402465, -0.848118, -0.128515, -0.909647, -0.0977502, -0.883278, 0.268493)
-
-[node name="drone fbx" parent="Drone - RigidBody3D" instance=ExtResource("1_sdhml")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
-visible = false
 
 [node name="player - origin" type="XROrigin3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.102177, 1.03396, 0.105351)
@@ -113,6 +94,7 @@ strafe = true
 [node name="LeftHand - model" parent="player - origin/Left - controller" instance=ExtResource("7_jrhbh")]
 
 [node name="FunctionPickup" parent="player - origin/Left - controller" instance=ExtResource("8_utqbe")]
+grab_distance = 0.05
 
 [node name="Right - controller" type="XRController3D" parent="player - origin"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.735)
@@ -122,9 +104,13 @@ tracker = &"right_hand"
 turn_mode = 2
 
 [node name="RightHand - model" parent="player - origin/Right - controller" instance=ExtResource("10_hlrtx")]
+visible = false
 
 [node name="FunctionPickup" parent="player - origin/Right - controller" instance=ExtResource("8_utqbe")]
 grab_distance = 0.05
+
+[node name="controller_right" parent="player - origin/Right - controller" instance=ExtResource("10_lclre")]
+transform = Transform3D(0.17, 0, 0, 0, 0.17, 0, 0, 0, 0.17, 0, 0, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.823109, -0.0375011, -0.566644, 0.308758, 0.867001, 0.391124, 0.476613, -0.496893, 0.725215, -10.0162, 3.94641, 5.34912)
@@ -140,23 +126,31 @@ shape = SubResource("BoxShape3D_l5fid")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
 mesh = SubResource("BoxMesh_qye2y")
 
-[node name="PickableObject" parent="." instance=ExtResource("10_v7mpg")]
+[node name="drone - PickableObject" parent="." instance=ExtResource("10_v7mpg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14844, -2.04597)
+press_to_hold = false
 
-[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="PickableObject"]
+[node name="drone - hitboxLeftWing" type="CollisionPolygon3D" parent="drone - PickableObject"]
 transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 0.226011, -0.046453, -0.0182629)
 depth = 0.165
 polygon = PackedVector2Array(-0.0893041, 0.763616, -0.698407, 0.319239, -0.610297, -0.420112, 0.0600983, -0.726579, 0.676863, -0.282202, 0.584922, 0.464811)
 
-[node name="CollisionPolygon3D2" type="CollisionPolygon3D" parent="PickableObject"]
+[node name="drone - hitboxRightWing" type="CollisionPolygon3D" parent="drone - PickableObject"]
 transform = Transform3D(0.195296, 0.043121, 1.88488e-09, 0, -8.74228e-09, 0.2, 0.043121, -0.195296, -8.53667e-09, -0.22523, -0.046, -0.00903416)
 depth = 0.165
 polygon = PackedVector2Array(-0.0902528, 0.804177, -0.684194, 0.359064, -0.598522, -0.376047, 0.0826526, -0.673117, 0.678156, -0.235076, 0.595117, 0.510505)
 
-[node name="CollisionPolygon3D3" type="CollisionPolygon3D" parent="PickableObject"]
+[node name="drone - hitboxMainBody" type="CollisionPolygon3D" parent="drone - PickableObject"]
 transform = Transform3D(-8.74228e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.74228e-09, 0, 0, 0)
 depth = 0.835
 polygon = PackedVector2Array(0.287065, 0.20322, 0.92293, 0.0366125, 0.891153, -0.261707, 0.356646, -0.324962, 0.35609, -0.405395, 0.255007, -0.40393, 0.231568, -0.324821, -0.326512, -0.271195, -0.773405, -0.147559, -0.776335, -0.401, -0.848118, -0.402465, -0.848118, -0.128515, -0.909647, -0.0977502, -0.883278, 0.268493)
 
-[node name="drone fbx" parent="PickableObject" instance=ExtResource("1_sdhml")]
+[node name="drone fbx" parent="drone - PickableObject" instance=ExtResource("1_sdhml")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="GrabPointHandLeft" parent="drone - PickableObject" instance=ExtResource("12_rovoh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.334864, 0.0139006, 0)
+hand_pose = SubResource("Resource_841gg")
+
+[node name="GrabPointHandRight" parent="drone - PickableObject" instance=ExtResource("13_trql2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.346723, 0, 0)
