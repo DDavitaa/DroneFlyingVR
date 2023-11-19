@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://canilndci7fwl"]
+
+[ext_resource type="PackedScene" uid="uid://dfq13qpr2xhcc" path="res://models/headset.glb" id="1_v88lb"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="headset_new" parent="." instance=ExtResource("1_v88lb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.669746, 0, 0.196282)
+
+[node name="Skeleton3D" parent="headset_new/control_rig" index="0"]
+bones/0/rotation = Quaternion(0, 0, 0, 1)
+
+[editable path="headset_new"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://c4mac68g6eja"]
+[gd_scene load_steps=38 format=3 uid="uid://c4mac68g6eja"]
 
 [ext_resource type="Script" path="res://scenes/root.gd" id="1_drtle"]
 [ext_resource type="PackedScene" uid="uid://bjh6o1j0m2p0u" path="res://models/drone.fbx" id="1_sdhml"]
@@ -19,6 +19,8 @@
 [ext_resource type="Script" path="res://scenes/joystick_right.gd" id="13_i7nh4"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="13_trql2"]
 [ext_resource type="Animation" uid="uid://db62hs5s4n2b3" path="res://addons/godot-xr-tools/hands/animations/left/Grip 4.res" id="14_vkyw8"]
+[ext_resource type="PackedScene" uid="uid://dfq13qpr2xhcc" path="res://models/headset.glb" id="20_wnw38"]
+[ext_resource type="Script" path="res://models/headset.gd" id="21_d6gug"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_yxwyt"]
 panorama = ExtResource("2_d6hck")
@@ -41,7 +43,7 @@ albedo_color = Color(0.243137, 0.380392, 0, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iu3bh"]
 radius = 0.12013
-height = 1.33654
+height = 0.422094
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_hmnug"]
 
@@ -57,6 +59,31 @@ roughness = 0.15
 [sub_resource type="Resource" id="Resource_841gg"]
 script = ExtResource("13_b0n03")
 closed_pose = ExtResource("14_vkyw8")
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_e2plm"]
+input_0/name = "close"
+input_0/auto_advance = false
+input_0/reset = true
+input_1/name = "open"
+input_1/auto_advance = false
+input_1/reset = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bidy6"]
+animation = &"headset_close"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d5g7c"]
+animation = &"headset_open"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_wuuqs"]
+graph_offset = Vector2(-437.874, 12.6363)
+nodes/Transition/node = SubResource("AnimationNodeTransition_e2plm")
+nodes/Transition/position = Vector2(380, 140)
+nodes/close/node = SubResource("AnimationNodeAnimation_bidy6")
+nodes/close/position = Vector2(100, 120)
+nodes/open/node = SubResource("AnimationNodeAnimation_d5g7c")
+nodes/open/position = Vector2(140, 300)
+nodes/output/position = Vector2(660, 180)
+node_connections = [&"output", 0, &"Transition", &"Transition", 0, &"close", &"Transition", 1, &"open"]
 
 [node name="root" type="Node3D"]
 script = ExtResource("1_drtle")
@@ -89,7 +116,7 @@ current = true
 [node name="PlayerBody" parent="player - origin" instance=ExtResource("4_beeq5")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="player - origin/PlayerBody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68749, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.210327, 0)
 shape = SubResource("CapsuleShape3D_iu3bh")
 
 [node name="player - camera" type="XRCamera3D" parent="player - origin"]
@@ -161,6 +188,16 @@ shape = SubResource("BoxShape3D_l5fid")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
 mesh = SubResource("BoxMesh_qye2y")
 
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01438, 0.31124, -2.07135)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+shape = SubResource("BoxShape3D_l5fid")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2/CollisionShape3D"]
+mesh = SubResource("BoxMesh_qye2y")
+
 [node name="drone - PickableObject" parent="." instance=ExtResource("10_v7mpg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14844, -2.04597)
 press_to_hold = false
@@ -180,9 +217,6 @@ transform = Transform3D(-8.74228e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.74228e-09, 
 depth = 0.835
 polygon = PackedVector2Array(0.287065, 0.20322, 0.92293, 0.0366125, 0.891153, -0.261707, 0.356646, -0.324962, 0.35609, -0.405395, 0.255007, -0.40393, 0.231568, -0.324821, -0.326512, -0.271195, -0.773405, -0.147559, -0.776335, -0.401, -0.848118, -0.402465, -0.848118, -0.128515, -0.909647, -0.0977502, -0.883278, 0.268493)
 
-[node name="drone fbx" parent="drone - PickableObject" instance=ExtResource("1_sdhml")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
-
 [node name="GrabPointHandLeft" parent="drone - PickableObject" instance=ExtResource("12_rovoh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.334864, 0.0139006, 0)
 hand_pose = SubResource("Resource_841gg")
@@ -190,5 +224,40 @@ hand_pose = SubResource("Resource_841gg")
 [node name="GrabPointHandRight" parent="drone - PickableObject" instance=ExtResource("13_trql2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.346723, 0, 0)
 
+[node name="drone fbx" parent="drone - PickableObject" instance=ExtResource("1_sdhml")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="headset - PickableObject" parent="." instance=ExtResource("10_v7mpg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.908574, 1.01557, -2.03606)
+
+[node name="GrabPointHandLeft" parent="headset - PickableObject" instance=ExtResource("12_rovoh")]
+transform = Transform3D(-0.789641, -7.82277e-08, 0.613569, -0.613569, -2.68199e-08, -0.789641, 7.82277e-08, -1, -2.68199e-08, 0.218703, 0.120817, -0.0527446)
+visible = true
+
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="headset - PickableObject"]
+transform = Transform3D(-3.10351e-08, 0, -0.71, 0, 0.71, 0, 0.71, 0, -3.10351e-08, 0.125045, -0.0332674, 0)
+depth = 0.373
+polygon = PackedVector2Array(-0.11897, 0.116391, -0.159507, 0.0431159, -0.135178, -0.0379664, 0.0924995, -0.0379664, 0.0917277, 0.117163)
+
+[node name="headset" parent="headset - PickableObject/CollisionPolygon3D" instance=ExtResource("20_wnw38")]
+transform = Transform3D(-1.26763e-08, 0, 0.29, 0, 0.29, 0, -0.29, 0, -1.26763e-08, 0, 0.0305362, 0)
+script = ExtResource("21_d6gug")
+
+[node name="Skeleton3D" parent="headset - PickableObject/CollisionPolygon3D/headset/control_rig" index="0"]
+bones/0/rotation = Quaternion(0, 0, 0, 1)
+
+[node name="headset2" parent="headset - PickableObject/CollisionPolygon3D/headset/control_rig/Skeleton3D" index="0"]
+transform = Transform3D(1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="AnimationTree" type="AnimationTree" parent="headset - PickableObject/CollisionPolygon3D/headset"]
+tree_root = SubResource("AnimationNodeBlendTree_wuuqs")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/Transition/current_state = "close"
+parameters/Transition/transition_request = ""
+parameters/Transition/current_index = 0
+
 [connection signal="input_vector2_changed" from="player - origin/Left - controller" to="player - origin/Left - controller/joystick_origin" method="_on_left__controller_input_vector_2_changed"]
 [connection signal="input_vector2_changed" from="player - origin/Right - controller" to="player - origin/Right - controller/joystick_origin" method="_on_right__controller_input_vector_2_changed"]
+
+[editable path="headset - PickableObject/CollisionPolygon3D/headset"]
