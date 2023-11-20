@@ -1,9 +1,8 @@
 extends Node3D
 
 var xr_interface: XRInterface
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
-	pass
 	xr_interface = XRServer.find_interface("OpenXR")
 	if xr_interface and xr_interface.is_initialized():
 		print("OpenXR initialised successfully")
@@ -16,8 +15,6 @@ func _ready():
 	else:
 		print("OpenXR not initialized, please check if your headset is connected")
  
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 	
