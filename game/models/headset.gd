@@ -9,3 +9,13 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+
+func _on_headset__pickable_object_picked_up(pickable):
+	if(pickable):
+		$AnimationTree.set("parameters/Transition/transition_request","open")
+	
+
+func _on_headset__pickable_object_dropped(pickable):
+	if(pickable):
+		$AnimationTree.set("parameters/Transition/transition_request","close")

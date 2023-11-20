@@ -75,9 +75,9 @@ animation = &"headset_close"
 animation = &"headset_open"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_wuuqs"]
-graph_offset = Vector2(-437.874, 12.6363)
+graph_offset = Vector2(-396.118, -43.6972)
 nodes/Transition/node = SubResource("AnimationNodeTransition_e2plm")
-nodes/Transition/position = Vector2(380, 140)
+nodes/Transition/position = Vector2(420, 160)
 nodes/close/node = SubResource("AnimationNodeAnimation_bidy6")
 nodes/close/position = Vector2(100, 120)
 nodes/open/node = SubResource("AnimationNodeAnimation_d5g7c")
