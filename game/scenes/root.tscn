@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://c4mac68g6eja"]
+[gd_scene load_steps=44 format=3 uid="uid://c4mac68g6eja"]
 
 [ext_resource type="Script" path="res://scenes/root.gd" id="1_drtle"]
 [ext_resource type="PackedScene" uid="uid://bjh6o1j0m2p0u" path="res://models/drone.fbx" id="1_sdhml"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" path="res://scenes/joystick_right.gd" id="13_i7nh4"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="13_trql2"]
 [ext_resource type="Animation" uid="uid://db62hs5s4n2b3" path="res://addons/godot-xr-tools/hands/animations/left/Grip 4.res" id="14_vkyw8"]
+[ext_resource type="Script" path="res://models/controllers.gd" id="17_efc84"]
 [ext_resource type="PackedScene" uid="uid://dfq13qpr2xhcc" path="res://models/headset.glb" id="20_wnw38"]
 [ext_resource type="Script" path="res://models/headset.gd" id="21_d6gug"]
 [ext_resource type="PackedScene" uid="uid://hdphbgymkgsw" path="res://models/table.fbx" id="22_guqu3"]
@@ -123,7 +124,6 @@ transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
 shape = SubResource("BoxShape3D_l5fid")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="dronestand - StaticBody3D/CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_qye2y")
 
 [node name="drone - PickableObject" parent="." instance=ExtResource("10_v7mpg")]
@@ -202,7 +202,7 @@ current = true
 
 [node name="player - audioListener" type="AudioListener3D" parent="player - origin"]
 
-[node name="Left - controller" type="XRController3D" parent="player - origin"]
+[node name="Left - controller" type="XRController3D" parent="player - origin" groups=["Left_Controller"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, -0.735)
 tracker = &"left_hand"
 
@@ -217,18 +217,19 @@ grab_distance = 0.1
 [node name="controller_left" parent="player - origin/Left - controller" instance=ExtResource("8_wneb3")]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.0183711, -0.0211396)
 visible = false
+script = ExtResource("17_efc84")
 
 [node name="joystick_origin" type="Node3D" parent="player - origin/Left - controller/controller_left"]
-transform = Transform3D(6.66667, 0, 0, 0, 6.36507, -1.9825, 0, 1.9825, 6.36507, -0.0880667, 0.217526, -0.145736)
+transform = Transform3D(6.66667, 0, 0, 0, 6.36507, -1.9825, 0, 1.9825, 6.36507, -0.101, 0.218, -0.146)
 script = ExtResource("9_lnrhh")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="player - origin/Left - controller/controller_left/joystick_origin"]
-transform = Transform3D(0.004, 0, 0, 0, 0.011, 2.32831e-10, 0, 1.16415e-09, 0.004, -0.00239554, 0.0118749, 1.16825e-05)
+transform = Transform3D(0.004, 0, 0, 0, 0.011, 2.32831e-10, 0, 1.16415e-09, 0.004, 0, 0.012, 0)
 mesh = SubResource("CylinderMesh_hmnug")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_dsgym")
 
-[node name="Right - controller" type="XRController3D" parent="player - origin"]
+[node name="Right - controller" type="XRController3D" parent="player - origin" groups=["Right_Controller"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, -0.735)
 tracker = &"right_hand"
 
@@ -243,13 +244,14 @@ grab_distance = 0.1
 [node name="controller_right" parent="player - origin/Right - controller" instance=ExtResource("10_lclre")]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.0183711, -0.0211396)
 visible = false
+script = ExtResource("17_efc84")
 
 [node name="joystick_origin" type="Node3D" parent="player - origin/Right - controller/controller_right"]
-transform = Transform3D(6.66667, 0, 0, 0, 6.36507, -1.9825, 0, 1.9825, 6.36507, 0.116265, 0.220151, -0.144529)
+transform = Transform3D(6.66667, 0, 0, 0, 6.36507, -1.9825, 0, 1.9825, 6.36507, 0.101, 0.22, -0.145)
 script = ExtResource("13_i7nh4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="player - origin/Right - controller/controller_right/joystick_origin"]
-transform = Transform3D(0.004, 0, 0, 0, 0.011, 1.16415e-10, 0, 2.32831e-10, 0.004, -0.00239553, 0.0118749, 1.16825e-05)
+transform = Transform3D(0.004, 0, 0, 0, 0.011, 1.16415e-10, 0, 2.32831e-10, 0.004, 0, 0.012, 0)
 mesh = SubResource("CylinderMesh_hmnug")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_dsgym")
@@ -259,13 +261,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19038, -1.19209e-07, 0)
 
 [node name="Right - SnapZone" parent="table - StaticBody3D" instance=ExtResource("4_0r3ca")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.187693, 1.20185, 0.353657)
-snap_mode = 1
 snap_require = "Right_Stand"
+initial_object = NodePath("../../ctrllr_right - PickableObject")
 
 [node name="Left - SnapZone" parent="table - StaticBody3D" instance=ExtResource("4_0r3ca")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.187693, 1.20185, 0.575564)
-snap_mode = 1
 snap_require = "Left_Stand"
+initial_object = NodePath("../../ctrllr_left - PickableObject")
 
 [node name="table - CollisionPolygon3D" type="CollisionPolygon3D" parent="table - StaticBody3D"]
 transform = Transform3D(0.505, 0, 0, 0, 0.505, 0, 0, 0, 0.505, 0, 0, 0)
@@ -275,27 +277,28 @@ polygon = PackedVector2Array(0.845, 2.169, -0.845, 2.169, -0.845, 0.187, 0.845, 
 [node name="table fbx" parent="table - StaticBody3D/table - CollisionPolygon3D" instance=ExtResource("22_guqu3")]
 transform = Transform3D(0.84, 0, 0, 0, 1, 0, 0, 0, 0.82, 0, 0, 0)
 
-[node name="ctrllr_left - PickableObject2" parent="." groups=["Left_Stand"] instance=ExtResource("10_v7mpg")]
+[node name="ctrllr_left - PickableObject" parent="." groups=["Left_Stand"] instance=ExtResource("10_v7mpg")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.07627, 1.21872, 0.568509)
 press_to_hold = false
+picked_by_exclude = "Right_Controller"
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="ctrllr_left - PickableObject2"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="ctrllr_left - PickableObject"]
 transform = Transform3D(0.14, 0, 0, 0, 0.14, 0, 0, 0, 0.14, 0, 0, 0)
 shape = SubResource("BoxShape3D_d1oml")
 
-[node name="GrabPointSnap" parent="ctrllr_left - PickableObject2" instance=ExtResource("25_h1p6r")]
+[node name="GrabPointSnap" parent="ctrllr_left - PickableObject" instance=ExtResource("25_h1p6r")]
 transform = Transform3D(1, -1.3027e-15, -3.55271e-15, 8.47998e-16, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0, 0)
 require_group = "Left_Stand"
 
-[node name="controller_left" parent="ctrllr_left - PickableObject2" instance=ExtResource("8_wneb3")]
+[node name="controller_left" parent="ctrllr_left - PickableObject" instance=ExtResource("8_wneb3")]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.0183711, -0.0211396)
 script = ExtResource("23_epxg3")
 
-[node name="joystick_origin" type="Node3D" parent="ctrllr_left - PickableObject2/controller_left"]
+[node name="joystick_origin" type="Node3D" parent="ctrllr_left - PickableObject/controller_left"]
 transform = Transform3D(6.66667, 0, 0, 0, 6.36507, -1.9825, 0, 1.9825, 6.36507, -0.0880667, 0.217526, -0.145736)
 script = ExtResource("9_lnrhh")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ctrllr_left - PickableObject2/controller_left/joystick_origin"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ctrllr_left - PickableObject/controller_left/joystick_origin"]
 transform = Transform3D(0.004, 0, 0, 0, 0.011, 2.32831e-10, 0, 1.16415e-09, 0.004, -0.00239554, 0.0118749, 1.16825e-05)
 mesh = SubResource("CylinderMesh_hmnug")
 skeleton = NodePath("../../../..")
@@ -304,6 +307,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_dsgym")
 [node name="ctrllr_right - PickableObject" parent="." groups=["Right_Stand"] instance=ExtResource("10_v7mpg")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.07627, 1.21872, 0.346877)
 press_to_hold = false
+picked_by_exclude = "Left_Controller"
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="ctrllr_right - PickableObject"]
 transform = Transform3D(0.14, 0, 0, 0, 0.14, 0, 0, 0, 0.14, 0, 0, 0)
@@ -326,9 +330,13 @@ mesh = SubResource("CylinderMesh_hmnug")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_dsgym")
 
+[connection signal="button_pressed" from="player - origin/Left - controller" to="player - origin/Left - controller/controller_left" method="_on_left__controller_button_pressed"]
+[connection signal="input_vector2_changed" from="player - origin/Left - controller" to="player - origin/Left - controller/controller_left" method="_on_left__controller_input_vector_2_changed"]
 [connection signal="input_vector2_changed" from="player - origin/Left - controller" to="player - origin/Left - controller/controller_left/joystick_origin" method="_on_left__controller_input_vector_2_changed"]
+[connection signal="button_pressed" from="player - origin/Right - controller" to="player - origin/Right - controller/controller_right" method="_on_right__controller_button_pressed"]
+[connection signal="input_vector2_changed" from="player - origin/Right - controller" to="player - origin/Right - controller/controller_right" method="_on_right__controller_input_vector_2_changed"]
 [connection signal="input_vector2_changed" from="player - origin/Right - controller" to="player - origin/Right - controller/controller_right/joystick_origin" method="_on_right__controller_input_vector_2_changed"]
-[connection signal="picked_up" from="ctrllr_left - PickableObject2" to="ctrllr_left - PickableObject2/controller_left" method="_on_ctrllr_left__pickable_object_2_picked_up"]
+[connection signal="picked_up" from="ctrllr_left - PickableObject" to="ctrllr_left - PickableObject/controller_left" method="_on_ctrllr_left__pickable_object_2_picked_up"]
 [connection signal="picked_up" from="ctrllr_right - PickableObject" to="ctrllr_right - PickableObject/controller_right" method="_on_ctrllr_right__pickable_object_picked_up"]
 
 [editable path="headset - PickableObject/headset - CollisionPolygon3D/headset fbx"]
