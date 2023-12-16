@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://c4mac68g6eja"]
+[gd_scene load_steps=55 format=3 uid="uid://c4mac68g6eja"]
 
 [ext_resource type="Script" path="res://scenes/root.gd" id="1_drtle"]
 [ext_resource type="PackedScene" uid="uid://bjh6o1j0m2p0u" path="res://models/drone.fbx" id="1_sdhml"]
@@ -30,6 +30,8 @@
 [ext_resource type="PackedScene" uid="uid://m8qidoo336ro" path="res://models/buildingtwo.fbx" id="28_w0s0o"]
 [ext_resource type="PackedScene" uid="uid://cm74oyyhethyp" path="res://models/buildingthree.fbx" id="29_bsf6l"]
 [ext_resource type="PackedScene" uid="uid://dkqkwkwxg016b" path="res://models/buildingfour.fbx" id="30_a676w"]
+[ext_resource type="PackedScene" uid="uid://cw3rqav7vmn47" path="res://models/buildings.blend" id="31_e2ttn"]
+[ext_resource type="Shader" path="res://scenes/building1.gdshader" id="32_dflw6"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_yxwyt"]
 
@@ -94,6 +96,25 @@ metallic = 1.0
 roughness = 0.15
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d1oml"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dbljb"]
+frequency = 0.05
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_obnr0"]
+noise = SubResource("FastNoiseLite_dbljb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t0xf6"]
+albedo_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
+normal_enabled = true
+normal_scale = 0.28
+normal_texture = SubResource("NoiseTexture2D_obnr0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p8lmg"]
+render_priority = 0
+shader = ExtResource("32_dflw6")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2r4bq"]
+next_pass = SubResource("ShaderMaterial_p8lmg")
 
 [node name="root" type="Node3D"]
 script = ExtResource("1_drtle")
@@ -340,6 +361,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_dsgym")
 [node name="buildingone" parent="." instance=ExtResource("26_fpqdr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.87903, 5.81006, 4.31349)
 
+[node name="BuildingOne" parent="buildingone/RootNode" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_t0xf6")
+
+[node name="StaticBody3D" parent="buildingone/RootNode/BuildingOne" index="1"]
+visible = false
+
 [node name="buildingthree" parent="." instance=ExtResource("29_bsf6l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.1171, 4.23036, -18.1968)
 
@@ -348,6 +375,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.0788, 4.06606, -9.69031)
 
 [node name="buildingtwo" parent="." instance=ExtResource("28_w0s0o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.7834, 4.28802, -10.8211)
+
+[node name="buildings" parent="." instance=ExtResource("31_e2ttn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.8231, 0, 44.0358)
+
+[node name="BuildingOne" parent="buildings" index="0"]
+visible = false
+
+[node name="BuildingFour" parent="buildings" index="1"]
+visible = false
+
+[node name="BuildingThree" parent="buildings" index="2"]
+visible = false
+
+[node name="BuildingTwo" parent="buildings" index="3"]
+transform = Transform3D(1, 0, 0, 0, 4.00547, 0, 0, 0, 1, 0, 6.89612, 0)
+material_override = SubResource("StandardMaterial3D_2r4bq")
+
+[node name="CollisionShape3D" parent="buildings/BuildingTwo/StaticBody3D" index="0"]
+visible = false
 
 [connection signal="button_pressed" from="player - origin/Left - controller" to="player - origin/Left - controller/controller_left" method="_on_left__controller_button_pressed"]
 [connection signal="input_vector2_changed" from="player - origin/Left - controller" to="player - origin/Left - controller/controller_left" method="_on_left__controller_input_vector_2_changed"]
@@ -360,3 +406,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.7834, 4.28802, -10.8211)
 
 [editable path="headset - PickableObject/headset - CollisionPolygon3D/headset fbx"]
 [editable path="buildingone"]
+[editable path="buildingthree"]
+[editable path="buildings"]
