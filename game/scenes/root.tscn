@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://c4mac68g6eja"]
+[gd_scene load_steps=78 format=3 uid="uid://cgt76jmb7odyh"]
 
 [ext_resource type="Script" path="res://scenes/root.gd" id="1_drtle"]
 [ext_resource type="PackedScene" uid="uid://bjh6o1j0m2p0u" path="res://models/drone.fbx" id="1_sdhml"]
@@ -1226,7 +1226,6 @@ script = ExtResource("33_3eq3c")
 [node name="PathFollow3D2" type="PathFollow3D" parent="Car2Path3D"]
 transform = Transform3D(0.999905, 5.70266e-07, 0.0137904, 5.68434e-14, 1, -4.13523e-05, -0.0137904, 4.13483e-05, 0.999905, -8.04475, 0.0063324, 2.36296)
 
-[connection signal="finished" from="drone - PickableObject/AudioStreamPlayer3D" to="drone - PickableObject/AudioStreamPlayer3D" method="_on_finished"]
 [node name="buildinglights" type="StaticBody3D" parent="."]
 
 [node name="light1" type="MeshInstance3D" parent="buildinglights"]
@@ -1450,6 +1449,7 @@ light_indirect_energy = 3.779
 light_volumetric_fog_energy = 4.032
 omni_range = 52.463
 
+[connection signal="finished" from="drone - PickableObject/AudioStreamPlayer3D" to="drone - PickableObject/AudioStreamPlayer3D" method="_on_finished"]
 [connection signal="dropped" from="headset - PickableObject" to="headset - PickableObject/headset - CollisionPolygon3D/headset fbx" method="_on_headset__pickable_object_dropped"]
 [connection signal="picked_up" from="headset - PickableObject" to="headset - PickableObject/headset - CollisionPolygon3D/headset fbx" method="_on_headset__pickable_object_picked_up"]
 [connection signal="button_pressed" from="player - origin/Left - controller" to="player - origin/Left - controller/controller_left" method="_on_left__controller_button_pressed"]
