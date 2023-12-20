@@ -22,19 +22,6 @@ func _ready():
 func _process(delta):
 	pass
 
-
-func _on_ctrllr_right__pickable_object_picked_up(pickable):
-	if(offset_right == 2):
-		offset_right = 1	
-	elif(offset_right == 1):
-		snapped_right.visible = false
-		hand_right.visible = false
-		controller_onRight.visible = true
-		offset_right = 2
-	else:
-		offset_right = 1
-	
-
 func _on_ctrllr_left__pickable_object_2_picked_up(pickable):
 	if(offset_left == 2):
 		offset_left = 1

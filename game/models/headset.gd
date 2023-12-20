@@ -13,6 +13,7 @@ func _process(delta):
 
 func _on_headset__pickable_object_picked_up(pickable):
 	if(pickable):
+		print("yes")
 		$AnimationTree.set("parameters/Transition/transition_request","open")
 	
 

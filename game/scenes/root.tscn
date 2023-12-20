@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://c4mac68g6eja"]
+[gd_scene load_steps=45 format=3 uid="uid://cgt76jmb7odyh"]
 
 [ext_resource type="Script" path="res://scenes/root.gd" id="1_drtle"]
 [ext_resource type="PackedScene" uid="uid://bjh6o1j0m2p0u" path="res://models/drone.fbx" id="1_sdhml"]
@@ -20,12 +20,13 @@
 [ext_resource type="Script" path="res://scenes/joystick_right.gd" id="13_i7nh4"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="13_trql2"]
 [ext_resource type="Animation" uid="uid://db62hs5s4n2b3" path="res://addons/godot-xr-tools/hands/animations/left/Grip 4.res" id="14_vkyw8"]
-[ext_resource type="Script" path="res://models/controllers.gd" id="17_efc84"]
+[ext_resource type="Script" path="res://scenes/controllers.gd" id="17_elod8"]
 [ext_resource type="PackedScene" uid="uid://dfq13qpr2xhcc" path="res://models/headset.glb" id="20_wnw38"]
 [ext_resource type="Script" path="res://models/headset.gd" id="21_d6gug"]
 [ext_resource type="PackedScene" uid="uid://hdphbgymkgsw" path="res://models/table.fbx" id="22_guqu3"]
-[ext_resource type="Script" path="res://models/controller_pickup.gd" id="23_epxg3"]
 [ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="25_h1p6r"]
+[ext_resource type="Script" path="res://scenes/controller_left_Pickable.gd" id="26_e343c"]
+[ext_resource type="Script" path="res://models/controller_right_Pickable.gd" id="27_puuta"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_yxwyt"]
 panorama = ExtResource("2_d6hck")
@@ -69,7 +70,7 @@ animation = &"headset_close"
 animation = &"headset_open"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_wuuqs"]
-graph_offset = Vector2(-396.118, -43.6972)
+graph_offset = Vector2(-182.704, 75.4545)
 nodes/Transition/node = SubResource("AnimationNodeTransition_e2plm")
 nodes/Transition/position = Vector2(420, 160)
 nodes/close/node = SubResource("AnimationNodeAnimation_bidy6")
@@ -128,6 +129,7 @@ mesh = SubResource("BoxMesh_qye2y")
 
 [node name="drone - PickableObject" parent="." instance=ExtResource("10_v7mpg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14844, -2.04597)
+gravity_scale = 0.0
 press_to_hold = false
 
 [node name="drone - hitboxLeftWing" type="CollisionPolygon3D" parent="drone - PickableObject"]
@@ -208,6 +210,7 @@ tracker = &"left_hand"
 
 [node name="MovementDirect" parent="player - origin/Left - controller" instance=ExtResource("5_tf8k3")]
 strafe = true
+enabled = false
 
 [node name="LeftHand - model" parent="player - origin/Left - controller" instance=ExtResource("7_jrhbh")]
 
@@ -217,7 +220,7 @@ grab_distance = 0.1
 [node name="controller_left" parent="player - origin/Left - controller" instance=ExtResource("8_wneb3")]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.0183711, -0.0211396)
 visible = false
-script = ExtResource("17_efc84")
+script = ExtResource("17_elod8")
 
 [node name="joystick_origin" type="Node3D" parent="player - origin/Left - controller/controller_left"]
 transform = Transform3D(6.66667, 0, 0, 0, 6.36507, -1.9825, 0, 1.9825, 6.36507, -0.101, 0.218, -0.146)
@@ -235,6 +238,7 @@ tracker = &"right_hand"
 
 [node name="MovementTurn" parent="player - origin/Right - controller" instance=ExtResource("8_0i7al")]
 turn_mode = 2
+enabled = false
 
 [node name="RightHand - model" parent="player - origin/Right - controller" instance=ExtResource("10_hlrtx")]
 
@@ -244,7 +248,7 @@ grab_distance = 0.1
 [node name="controller_right" parent="player - origin/Right - controller" instance=ExtResource("10_lclre")]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.0183711, -0.0211396)
 visible = false
-script = ExtResource("17_efc84")
+script = ExtResource("17_elod8")
 
 [node name="joystick_origin" type="Node3D" parent="player - origin/Right - controller/controller_right"]
 transform = Transform3D(6.66667, 0, 0, 0, 6.36507, -1.9825, 0, 1.9825, 6.36507, 0.101, 0.22, -0.145)
@@ -292,7 +296,7 @@ require_group = "Left_Stand"
 
 [node name="controller_left" parent="ctrllr_left - PickableObject" instance=ExtResource("8_wneb3")]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.0183711, -0.0211396)
-script = ExtResource("23_epxg3")
+script = ExtResource("26_e343c")
 
 [node name="joystick_origin" type="Node3D" parent="ctrllr_left - PickableObject/controller_left"]
 transform = Transform3D(6.66667, 0, 0, 0, 6.36507, -1.9825, 0, 1.9825, 6.36507, -0.0880667, 0.217526, -0.145736)
@@ -319,7 +323,7 @@ require_group = "Right_Stand"
 
 [node name="controller_right" parent="ctrllr_right - PickableObject" instance=ExtResource("10_lclre")]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.0183711, -0.0211396)
-script = ExtResource("23_epxg3")
+script = ExtResource("27_puuta")
 
 [node name="joystick_origin" type="Node3D" parent="ctrllr_right - PickableObject/controller_right"]
 transform = Transform3D(6.66667, 0, 0, 0, 6.36507, -1.9825, 0, 1.9825, 6.36507, 0.116265, 0.220151, -0.144529)
@@ -330,6 +334,8 @@ mesh = SubResource("CylinderMesh_hmnug")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_dsgym")
 
+[connection signal="dropped" from="headset - PickableObject" to="headset - PickableObject/headset - CollisionPolygon3D/headset fbx" method="_on_headset__pickable_object_dropped"]
+[connection signal="picked_up" from="headset - PickableObject" to="headset - PickableObject/headset - CollisionPolygon3D/headset fbx" method="_on_headset__pickable_object_picked_up"]
 [connection signal="button_pressed" from="player - origin/Left - controller" to="player - origin/Left - controller/controller_left" method="_on_left__controller_button_pressed"]
 [connection signal="input_vector2_changed" from="player - origin/Left - controller" to="player - origin/Left - controller/controller_left" method="_on_left__controller_input_vector_2_changed"]
 [connection signal="input_vector2_changed" from="player - origin/Left - controller" to="player - origin/Left - controller/controller_left/joystick_origin" method="_on_left__controller_input_vector_2_changed"]
