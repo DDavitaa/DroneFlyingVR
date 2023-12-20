@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://cgt76jmb7odyh"]
+[gd_scene load_steps=71 format=3 uid="uid://c4mac68g6eja"]
 
 [ext_resource type="Script" path="res://scenes/root.gd" id="1_drtle"]
 [ext_resource type="PackedScene" uid="uid://bjh6o1j0m2p0u" path="res://models/drone.fbx" id="1_sdhml"]
@@ -700,9 +700,6 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18.5646, -1.49012e-06, 0.7388
 [node name="StaticBody3D" parent="NavigationRegion3D/map/RootNode/Ground" index="0"]
 visible = false
 
-[node name="map2" parent="NavigationRegion3D" instance=ExtResource("27_xmgdr")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18.5646, -1.49012e-06, 0.738807)
-
 [node name="buildingfourfbx" parent="." instance=ExtResource("28_44t3t")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 7.11051, -7.45058e-07, 23.4764)
 
@@ -725,7 +722,10 @@ transform = Transform3D(-0.183429, -69.8351, 0.00306777, -2.08126e-06, 0.0030636
 transform = Transform3D(1, -3.72529e-09, 0, 3.72529e-09, 1, 0, 0, 3.63798e-12, 1, 0, -0.0797733, -3.41061e-13)
 
 [node name="buildingone" parent="." instance=ExtResource("26_fpqdr")]
-transform = Transform3D(-1.09278e-07, 0, -2.5, 0, 2.5, 0, 2.5, 0, -1.09278e-07, -0.991131, 8.95727, -22.352)
+transform = Transform3D(-1.09278e-07, 0, -2.5, 0, 2.5, 0, 2.5, 0, -1.09278e-07, -0.991131, 8.64343, -22.352)
+
+[node name="CollisionShape3D" parent="buildingone/RootNode/BuildingOne/StaticBody3D" index="0"]
+transform = Transform3D(1, 3.55271e-15, 1.69407e-21, 0, 1, -2.84217e-14, 1.05879e-22, 3.55271e-15, 1, 0, 0, 0)
 
 [node name="buildingone5" parent="." instance=ExtResource("26_fpqdr")]
 transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 29.2026, 10, -34.1548)
@@ -815,7 +815,10 @@ transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 39.9858, 8.19707, -22.6461)
 transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, -16.9652, 6.90641, -22.3028)
 
 [node name="buildingthree6" parent="." instance=ExtResource("29_bsf6l")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 7.28185, 6.90641, -22.6224)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 7.28185, 6.55155, -22.6224)
+
+[node name="CollisionShape3D" parent="buildingthree6/RootNode/BuildingThree/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, -2.84217e-14, 0, 0, 1, 0, 0, 0)
 
 [node name="buildingthree12" parent="." instance=ExtResource("29_bsf6l")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 15.4726, 9.31677, -22.6224)
@@ -939,8 +942,72 @@ mesh = SubResource("BoxMesh_yq7ui")
 transform = Transform3D(0.021179, 2.98764e-11, 0.580895, -0.0143556, 0.340726, 0.000356702, -0.703508, -0.00695276, 0.0174805, 14.685, -0.15292, -40.1419)
 mesh = SubResource("BoxMesh_yq7ui")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="lamppostlights/light27"]
-transform = Transform3D(0.0610512, -0.0413819, -2.02796, 0, 4.19099, -0.0855201, 2.45703, 0.00150875, 0.0739377, -19.4874, -1.0163, -24.5694)
+[node name="OmniLight3D4" type="OmniLight3D" parent="lamppostlights/light27"]
+transform = Transform3D(0.0610513, -0.0413818, -2.02796, -1.11546e-10, 4.19098, -0.0855199, 2.45703, 0.00150875, 0.0739376, -36.2672, -1.72392, -23.9576)
+light_color = Color(1, 1, 0, 1)
+light_energy = 4.545
+light_indirect_energy = 3.779
+light_volumetric_fog_energy = 4.032
+omni_range = 52.463
+
+[node name="OmniLight3D6" type="OmniLight3D" parent="lamppostlights/light27"]
+transform = Transform3D(0.0610512, -0.0413818, -2.02796, -1.66159e-10, 4.19098, -0.0855198, 2.45703, 0.00150875, 0.0739376, -79.4716, -3.54587, -22.3824)
+light_color = Color(1, 1, 0, 1)
+light_energy = 4.545
+light_indirect_energy = 3.779
+light_volumetric_fog_energy = 4.032
+omni_range = 52.463
+
+[node name="OmniLight3D7" type="OmniLight3D" parent="lamppostlights/light27"]
+transform = Transform3D(0.0610512, -0.0413818, -2.02796, -3.15437e-10, 4.19098, -0.0855198, 2.45703, 0.00150875, 0.0739376, -101.541, -4.47654, -21.5778)
+light_color = Color(1, 1, 0, 1)
+light_energy = 4.545
+light_indirect_energy = 3.779
+light_volumetric_fog_energy = 4.032
+omni_range = 52.463
+
+[node name="OmniLight3D8" type="OmniLight3D" parent="lamppostlights/light27"]
+transform = Transform3D(0.0610512, -0.0413818, -2.02796, -6.13997e-10, 4.19098, -0.0855198, 2.45703, 0.00150875, 0.0739375, -98.163, -4.47655, 114.356)
+light_color = Color(1, 1, 0, 1)
+light_energy = 4.545
+light_indirect_energy = 3.779
+light_volumetric_fog_energy = 4.032
+omni_range = 52.463
+
+[node name="OmniLight3D9" type="OmniLight3D" parent="lamppostlights/light27"]
+transform = Transform3D(0.0610512, -0.0413818, -2.02796, -1.08186e-09, 4.19098, -0.0855197, 2.45703, 0.00150874, 0.0739375, -72.6794, -3.40189, 113.427)
+light_color = Color(1, 1, 0, 1)
+light_energy = 4.545
+light_indirect_energy = 3.779
+light_volumetric_fog_energy = 4.032
+omni_range = 52.463
+
+[node name="OmniLight3D10" type="OmniLight3D" parent="lamppostlights/light27"]
+transform = Transform3D(0.0610512, -0.0413818, -2.02796, -1.23114e-09, 4.19098, -0.0855197, 2.45703, 0.00150874, 0.0739375, -52.8931, -2.5675, 112.706)
+light_color = Color(1, 1, 0, 1)
+light_energy = 4.545
+light_indirect_energy = 3.779
+light_volumetric_fog_energy = 4.032
+omni_range = 52.463
+
+[node name="OmniLight3D11" type="OmniLight3D" parent="lamppostlights/light27"]
+transform = Transform3D(0.0610511, -0.0413817, -2.02796, -1.38042e-09, 4.19098, -0.0855197, 2.45703, 0.00150874, 0.0739375, -17.6832, -1.08268, 111.422)
+light_color = Color(1, 1, 0, 1)
+light_energy = 4.545
+light_indirect_energy = 3.779
+light_volumetric_fog_energy = 4.032
+omni_range = 52.463
+
+[node name="OmniLight3D12" type="OmniLight3D" parent="lamppostlights/light27"]
+transform = Transform3D(0.0610511, -0.0413817, -2.02796, -1.77365e-09, 4.19098, -0.0855197, 2.45703, 0.00150874, 0.0739375, 23.8459, 0.668625, 109.908)
+light_color = Color(1, 1, 0, 1)
+light_energy = 4.545
+light_indirect_energy = 3.779
+light_volumetric_fog_energy = 4.032
+omni_range = 52.463
+
+[node name="OmniLight3D13" type="OmniLight3D" parent="lamppostlights/light27"]
+transform = Transform3D(0.0610511, -0.0413817, -2.02796, -2.24152e-09, 4.19098, -0.0855197, 2.45703, 0.00150874, 0.0739374, 32.2171, 1.07365, 59.9219)
 light_color = Color(1, 1, 0, 1)
 light_energy = 4.545
 light_indirect_energy = 3.779
@@ -948,7 +1015,15 @@ light_volumetric_fog_energy = 4.032
 omni_range = 52.463
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="lamppostlights/light27"]
-transform = Transform3D(0.0610512, -0.0413819, -2.02796, 0, 4.19099, -0.0855201, 2.45703, 0.00150875, 0.0739377, -19.4874, -1.0163, -24.5694)
+transform = Transform3D(0.0610513, -0.0413818, -2.02796, -1.11546e-10, 4.19098, -0.0855199, 2.45703, 0.00150875, 0.0739376, -2.43245, -0.297087, -25.1912)
+light_color = Color(1, 1, 0, 1)
+light_energy = 4.545
+light_indirect_energy = 3.779
+light_volumetric_fog_energy = 4.032
+omni_range = 52.463
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="lamppostlights/light27"]
+transform = Transform3D(0.0610513, -0.0413818, -2.02796, -1.68794e-11, 4.19098, -0.0855198, 2.45703, 0.00150875, 0.0739376, 17.7096, 0.552315, -25.9256)
 light_color = Color(1, 1, 0, 1)
 light_energy = 4.545
 light_indirect_energy = 3.779
@@ -1119,117 +1194,6 @@ script = ExtResource("33_3eq3c")
 
 [node name="PathFollow3D2" type="PathFollow3D" parent="Car2Path3D"]
 transform = Transform3D(0.999905, 5.70266e-07, 0.0137904, 5.68434e-14, 1, -4.13523e-05, -0.0137904, 4.13483e-05, 0.999905, -8.04475, 0.0063324, 2.36296)
-
-[node name="NavigationRegion3D2" type="NavigationRegion3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90735e-06, 1.13687e-13, -5.96046e-08)
-
-[node name="buildingfourfbx5" parent="." instance=ExtResource("28_44t3t")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 7.11051, -7.45058e-07, 23.4764)
-
-[node name="buildingfourfbx6" parent="." instance=ExtResource("28_44t3t")]
-transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 10.3377, -7.45058e-07, 35.1967)
-
-[node name="buildingfourfbx7" parent="." instance=ExtResource("28_44t3t")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -17.0342, -7.45058e-07, -34.5061)
-
-[node name="buildingfourfbx8" parent="." instance=ExtResource("28_44t3t")]
-transform = Transform3D(-0.144196, 0, -2.99653, 0, 3, 0, 2.99653, 0, -0.144196, 53.3548, -7.45058e-07, -4.32164)
-
-[node name="buildingone7" parent="." instance=ExtResource("26_fpqdr")]
-transform = Transform3D(-1.09278e-07, 0, -2.5, 0, 2.5, 0, 2.5, 0, -1.09278e-07, -0.991131, 8.95727, -22.352)
-
-[node name="buildingone8" parent="." instance=ExtResource("26_fpqdr")]
-transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 29.2026, 10, -34.1548)
-
-[node name="buildingone9" parent="." instance=ExtResource("26_fpqdr")]
-transform = Transform3D(0.0143115, 0, 2.49996, 0, 2.5, 0, -2.49996, 0, 0.0143115, 9.11044, 9.21305, -34.1548)
-
-[node name="buildingone10" parent="." instance=ExtResource("26_fpqdr")]
-transform = Transform3D(2.99973, 0, -0.0402111, 0, 3, 0, 0.0402111, 0, 2.99973, -16.6322, 10, -1.38371)
-
-[node name="buildingone11" parent="." instance=ExtResource("26_fpqdr")]
-transform = Transform3D(-0.0376976, 0, -2.49972, 0, 2.5, 0, 2.49972, 0, -0.0376976, 53.2016, 8.66223, 35.4188)
-
-[node name="buildingone12" parent="." instance=ExtResource("26_fpqdr")]
-transform = Transform3D(0.0715052, 0, 2.49898, 0, 2.5, 0, -2.49898, 0, 0.0715052, -0.55452, 8.66223, 35.4188)
-
-[node name="buildingtwo10" parent="." instance=ExtResource("28_w0s0o")]
-transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, -16.6315, 8.82784, -10.2537)
-
-[node name="buildingtwo11" parent="." instance=ExtResource("28_w0s0o")]
-transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, 51.9509, 8.82784, -34.2849)
-
-[node name="buildingtwo12" parent="." instance=ExtResource("28_w0s0o")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 39.3086, 7.76042, -34.2849)
-
-[node name="buildingtwo13" parent="." instance=ExtResource("28_w0s0o")]
-transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, 32.1959, 8.82784, -22.6111)
-
-[node name="buildingtwo14" parent="." instance=ExtResource("28_w0s0o")]
-transform = Transform3D(-3.49901, 0, -0.0831922, 0, 3.5, 0, 0.0831922, 0, -3.49901, 24.0655, 8.82784, -22.6111)
-
-[node name="buildingtwo15" parent="." instance=ExtResource("28_w0s0o")]
-transform = Transform3D(-2.99621, 0.132898, -0.0712375, 0.132861, 2.99706, 0.00315888, 0.0713075, 4.5402e-09, -2.99915, 40.2963, 7.62271, 35.252)
-
-[node name="buildingtwo16" parent="." instance=ExtResource("28_w0s0o")]
-transform = Transform3D(-0.115318, 0.00932633, -3.99833, 0.177148, 3.99607, 0.00421185, 3.99441, -0.176952, -0.115618, 39.7284, 7.62271, 22.6995)
-
-[node name="buildingtwo17" parent="." instance=ExtResource("28_w0s0o")]
-transform = Transform3D(-2.99718, -0.108675, -0.0712607, -0.108645, 2.99803, -0.00258312, 0.0713075, 4.91039e-09, -2.99915, -16.9182, 7.24484, 35.6384)
-
-[node name="buildingtwo18" parent="." instance=ExtResource("28_w0s0o")]
-transform = Transform3D(-2.39697, 0.106319, -0.05699, 0.106289, 2.39764, 0.00252711, 0.057046, 3.35276e-09, -2.39932, 52.4345, 5.46398, 3.35838)
-
-[node name="mainbuilding2" parent="." instance=ExtResource("31_xdt1h")]
-transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 25.4444, 0, 1.5814)
-
-[node name="buildingthree14" parent="." instance=ExtResource("29_bsf6l")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -16.8743, 6.23728, 11.7433)
-
-[node name="buildingthree15" parent="." instance=ExtResource("29_bsf6l")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -1.28916, 6.23728, 24.0717)
-
-[node name="buildingthree16" parent="." instance=ExtResource("29_bsf6l")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 52.4542, 6.23728, 24.0717)
-
-[node name="buildingthree17" parent="." instance=ExtResource("29_bsf6l")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 33.1693, 6.23728, 23.4849)
-
-[node name="buildingthree18" parent="." instance=ExtResource("29_bsf6l")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 31.8825, 6.23728, 34.9843)
-
-[node name="buildingthree19" parent="." instance=ExtResource("29_bsf6l")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 15.2062, 4.06888, 35.988)
-
-[node name="buildingthree20" parent="." instance=ExtResource("29_bsf6l")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -17.0539, 4.06888, 23.5671)
-
-[node name="buildingthree21" parent="." instance=ExtResource("29_bsf6l")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 51.4616, 6.23728, -22.3262)
-
-[node name="buildingthree22" parent="." instance=ExtResource("29_bsf6l")]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 39.9858, 8.19707, -22.6461)
-
-[node name="buildingthree23" parent="." instance=ExtResource("29_bsf6l")]
-transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, -16.9652, 6.90641, -22.3028)
-
-[node name="buildingthree24" parent="." instance=ExtResource("29_bsf6l")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 7.28185, 6.90641, -22.6224)
-
-[node name="buildingthree25" parent="." instance=ExtResource("29_bsf6l")]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 15.4726, 9.31677, -22.6224)
-
-[node name="buildingthree26" parent="." instance=ExtResource("29_bsf6l")]
-transform = Transform3D(0.00178014, 0, 3, 0, 3, 0, -3, 0, 0.00178014, 19.0257, 6.70506, -34.0009)
-
-[node name="lamppostlights2" type="StaticBody3D" parent="."]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -10.4259, 4.66766, 14.3403)
-
-[node name="Car1Path3D2" type="Path3D" parent="."]
-curve = SubResource("Curve3D_s5q8d")
-
-[node name="Car2Path3D2" type="Path3D" parent="."]
-curve = SubResource("Curve3D_tmwuc")
 
 [connection signal="dropped" from="headset - PickableObject" to="headset - PickableObject/headset - CollisionPolygon3D/headset fbx" method="_on_headset__pickable_object_dropped"]
 [connection signal="picked_up" from="headset - PickableObject" to="headset - PickableObject/headset - CollisionPolygon3D/headset fbx" method="_on_headset__pickable_object_picked_up"]
