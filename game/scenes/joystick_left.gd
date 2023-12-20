@@ -1,6 +1,7 @@
 extends Node3D
 
 @onready var drone = $"../../../../drone - PickableObject"
+@onready var sound = $"../../../../drone - PickableObject/AudioStreamPlayer3D"
 
 var MAX_SPEED = 5.0
 var ACCELERATION = 0.5
@@ -30,7 +31,12 @@ func _physics_process(delta):
 		#droneVel = (current_position.y - last_positionY.y) / delta
 		
 		drone.position.y += left_value_X * DRONE_SPEED_Y * delta
-		drone.rotation.y += left_value_Z * DRONE_ROTSPEED * delta
+		drone.rotation.y += -left_value_Z * DRONE_ROTSPEED * delta
+		
+		if left_value_X == 0:
+			sound.pitch_scale = lerp(sound.pitch_scale,1.0,0.1)
+		else:
+			sound.pitch_scale += min(1.5,left_value_X * delta)
 		
 		#last_positionY = drone.position
 	
@@ -46,3 +52,9 @@ func _process(delta):
 	rotation.z = -left_value_Z * 0.8
 	
 	
+
+
+func _on_left__controller_button_pressed(name):
+	if name == "trigger_click":
+		drone.position = Vector3(0,1.148,-2.046) # subject to change
+		drone.rotation = Vector3(0,0,0)

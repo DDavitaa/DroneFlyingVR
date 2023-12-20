@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://c4mac68g6eja"]
+[gd_scene load_steps=73 format=3 uid="uid://c4mac68g6eja"]
 
 [ext_resource type="Script" path="res://scenes/root.gd" id="1_drtle"]
 [ext_resource type="PackedScene" uid="uid://bjh6o1j0m2p0u" path="res://models/drone.fbx" id="1_sdhml"]
@@ -11,8 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="8_0i7al"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="8_utqbe"]
 [ext_resource type="PackedScene" uid="uid://bomn04y23t1qv" path="res://models/controller_left.fbx" id="8_wneb3"]
+[ext_resource type="AudioStream" uid="uid://bes5gwdyptbhe" path="res://audio/drone.mp3" id="9_lf4ou"]
 [ext_resource type="Script" path="res://scenes/joystick_left.gd" id="9_lnrhh"]
 [ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="10_hlrtx"]
+[ext_resource type="Script" path="res://scenes/droneSound.gd" id="10_hwaxo"]
 [ext_resource type="PackedScene" uid="uid://dlg5g0b3hj2k6" path="res://models/controller_right.fbx" id="10_lclre"]
 [ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="10_v7mpg"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="12_rovoh"]
@@ -513,6 +515,12 @@ transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, -0.00923026, 0)
 
 [node name="bulletSpawn" type="Node3D" parent="drone - PickableObject"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0879287, 0.197644)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="drone - PickableObject"]
+stream = ExtResource("9_lf4ou")
+volume_db = -12.77
+autoplay = true
+script = ExtResource("10_hwaxo")
 
 [node name="headset - PickableObject" parent="." instance=ExtResource("10_v7mpg")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.950722, 1.22941, -0.315593)
@@ -1195,9 +1203,11 @@ script = ExtResource("33_3eq3c")
 [node name="PathFollow3D2" type="PathFollow3D" parent="Car2Path3D"]
 transform = Transform3D(0.999905, 5.70266e-07, 0.0137904, 5.68434e-14, 1, -4.13523e-05, -0.0137904, 4.13483e-05, 0.999905, -8.04475, 0.0063324, 2.36296)
 
+[connection signal="finished" from="drone - PickableObject/AudioStreamPlayer3D" to="drone - PickableObject/AudioStreamPlayer3D" method="_on_finished"]
 [connection signal="dropped" from="headset - PickableObject" to="headset - PickableObject/headset - CollisionPolygon3D/headset fbx" method="_on_headset__pickable_object_dropped"]
 [connection signal="picked_up" from="headset - PickableObject" to="headset - PickableObject/headset - CollisionPolygon3D/headset fbx" method="_on_headset__pickable_object_picked_up"]
 [connection signal="button_pressed" from="player - origin/Left - controller" to="player - origin/Left - controller/controller_left" method="_on_left__controller_button_pressed"]
+[connection signal="button_pressed" from="player - origin/Left - controller" to="player - origin/Left - controller/controller_left/joystick_origin" method="_on_left__controller_button_pressed"]
 [connection signal="input_vector2_changed" from="player - origin/Left - controller" to="player - origin/Left - controller/controller_left" method="_on_left__controller_input_vector_2_changed"]
 [connection signal="input_vector2_changed" from="player - origin/Left - controller" to="player - origin/Left - controller/controller_left/joystick_origin" method="_on_left__controller_input_vector_2_changed"]
 [connection signal="button_pressed" from="player - origin/Right - controller" to="player - origin/Right - controller/controller_right" method="_on_right__controller_button_pressed"]
