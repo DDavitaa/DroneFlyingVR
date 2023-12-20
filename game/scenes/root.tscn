@@ -1,4 +1,3 @@
-[gd_scene load_steps=74 format=3 uid="uid://c4mac68g6eja"]
 [gd_scene load_steps=75 format=3 uid="uid://c4mac68g6eja"]
 
 [ext_resource type="Script" path="res://scenes/root.gd" id="1_drtle"]
