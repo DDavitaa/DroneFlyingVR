@@ -1,7 +1,8 @@
-[gd_scene load_steps=78 format=3 uid="uid://cgt76jmb7odyh"]
+[gd_scene load_steps=79 format=3 uid="uid://cgt76jmb7odyh"]
 
 [ext_resource type="Script" path="res://scenes/root.gd" id="1_drtle"]
 [ext_resource type="PackedScene" uid="uid://bjh6o1j0m2p0u" path="res://models/drone.fbx" id="1_sdhml"]
+[ext_resource type="AudioStream" uid="uid://b0dt071d81av5" path="res://audio/grid-hartzmann-main-version-13277-02-49.mp3" id="2_4l50d"]
 [ext_resource type="Script" path="res://scenes/Camera3D.gd" id="2_f4yp5"]
 [ext_resource type="PackedScene" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="3_go526"]
 [ext_resource type="Texture2D" uid="uid://bcqi7tjofvv4w" path="res://hdri/beautiful-shining-stars-night-sky.jpg" id="3_r67ic"]
@@ -450,6 +451,11 @@ material = SubResource("StandardMaterial3D_jh8rb")
 [node name="root" type="Node3D"]
 script = ExtResource("1_drtle")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_4l50d")
+volume_db = -30.918
+autoplay = true
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.972614, 0, 0.232427, 0, 1, 0, -0.232427, 0, 0.972614, -7.53027, 3.32676, 4.37986)
 current = true
@@ -529,6 +535,7 @@ autoplay = true
 script = ExtResource("10_hwaxo")
 
 [node name="SubViewport" type="SubViewport" parent="drone - PickableObject"]
+size = Vector2i(512, 297)
 
 [node name="Camera3D" type="Camera3D" parent="drone - PickableObject/SubViewport"]
 transform = Transform3D(-1, 2.55599e-08, -8.36028e-08, 0, 0.956305, 0.292372, 8.74228e-08, 0.292372, -0.956305, 0, 0.976813, -2.0342)
@@ -566,6 +573,9 @@ parameters/Transition/current_state = "close"
 parameters/Transition/transition_request = ""
 parameters/Transition/current_index = 0
 
+[node name="Timer" type="Timer" parent="headset - PickableObject"]
+wait_time = 1.5
+
 [node name="player - origin" type="XROrigin3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.102177, 1.03396, 0.105351)
 current = true
@@ -595,7 +605,6 @@ tracker = &"left_hand"
 
 [node name="MovementDirect" parent="player - origin/Left - controller" instance=ExtResource("5_tf8k3")]
 strafe = true
-enabled = false
 
 [node name="LeftHand - model" parent="player - origin/Left - controller" instance=ExtResource("7_jrhbh")]
 
@@ -623,7 +632,6 @@ tracker = &"right_hand"
 
 [node name="MovementTurn" parent="player - origin/Right - controller" instance=ExtResource("8_0i7al")]
 turn_mode = 2
-enabled = false
 
 [node name="RightHand - model" parent="player - origin/Right - controller" instance=ExtResource("10_hlrtx")]
 
@@ -1460,7 +1468,9 @@ omni_range = 52.463
 [connection signal="button_pressed" from="player - origin/Right - controller" to="player - origin/Right - controller/controller_right/joystick_origin" method="_on_right__controller_button_pressed"]
 [connection signal="input_vector2_changed" from="player - origin/Right - controller" to="player - origin/Right - controller/controller_right" method="_on_right__controller_input_vector_2_changed"]
 [connection signal="input_vector2_changed" from="player - origin/Right - controller" to="player - origin/Right - controller/controller_right/joystick_origin" method="_on_right__controller_input_vector_2_changed"]
+[connection signal="dropped" from="ctrllr_left - PickableObject" to="ctrllr_left - PickableObject/controller_left" method="_on_ctrllr_left__pickable_object_dropped"]
 [connection signal="picked_up" from="ctrllr_left - PickableObject" to="ctrllr_left - PickableObject/controller_left" method="_on_ctrllr_left__pickable_object_2_picked_up"]
+[connection signal="dropped" from="ctrllr_right - PickableObject" to="ctrllr_right - PickableObject/controller_right" method="_on_ctrllr_right__pickable_object_dropped"]
 [connection signal="picked_up" from="ctrllr_right - PickableObject" to="ctrllr_right - PickableObject/controller_right" method="_on_ctrllr_right__pickable_object_picked_up"]
 
 [editable path="headset - PickableObject/headset - CollisionPolygon3D/headset fbx"]

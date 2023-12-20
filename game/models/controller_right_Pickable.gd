@@ -9,6 +9,10 @@ extends Node3D
 @onready var controller_onRight = get_node("../../player - origin/Right - controller/controller_right")
 @onready var controller_onLeft = get_node("../../player - origin/Left - controller/controller_left")
 
+@onready var turningFunction = controller_onRight.get_node("../MovementTurn")
+
+@onready var rightJoystick = controller_onRight.get_node("joystick_origin")
+
 var offset_right = 0
 var offset_left = 0
 
@@ -30,7 +34,12 @@ func _on_ctrllr_right__pickable_object_picked_up(pickable):
 		snapped_right.visible = false
 		hand_right.visible = false
 		controller_onRight.visible = true
+		rightJoystick.enabled = true
+		turningFunction.enabled = false
 		offset_right = 2
 	else:
 		offset_right = 1
 	
+
+func _on_ctrllr_right__pickable_object_dropped(pickable):
+	pass # Replace with function body.

@@ -1,5 +1,7 @@
 extends Node3D
 
+@export var enabled = false
+
 @onready var drone = $"../../../../drone - PickableObject"
 @onready var sound = $"../../../../drone - PickableObject/AudioStreamPlayer3D"
 
@@ -22,14 +24,14 @@ func _on_left__controller_input_vector_2_changed(name, value):
 
 func _physics_process(delta):
 	if(drone):
+		if enabled:
+			drone.position.y += left_value_X * DRONE_SPEED_Y * delta
+			drone.rotation.y += -left_value_Z * DRONE_ROTSPEED * delta
 		
-		drone.position.y += left_value_X * DRONE_SPEED_Y * delta
-		drone.rotation.y += -left_value_Z * DRONE_ROTSPEED * delta
-		
-		if left_value_X == 0:
-			sound.pitch_scale = lerp(sound.pitch_scale,1.0,0.1)
-		else:
-			sound.pitch_scale += min(1.5,left_value_X * delta)
+			if left_value_X == 0:
+				sound.pitch_scale = lerp(sound.pitch_scale,1.0,0.1)
+			else:
+				sound.pitch_scale += min(1.5,left_value_X * delta)
 	
 func _process(delta):
 	rotation.x = 0.3 - left_value_X * 0.8
