@@ -22,13 +22,6 @@ func _on_left__controller_input_vector_2_changed(name, value):
 
 func _physics_process(delta):
 	if(drone):
-	#	drone.linear_velocity.y += left_value_X * DRONE_SPEED_Y * delta
-	#	drone.rotation.y += left_value_Z * DRONE_ROTSPEED * delta
-	#	if(left_value_X == 0):
-	#		drone.linear_velocity.y -= drone.linear_velocity.y * min(delta/0.2,1.0)
-	#	
-		#var current_position = drone.position
-		#droneVel = (current_position.y - last_positionY.y) / delta
 		
 		drone.position.y += left_value_X * DRONE_SPEED_Y * delta
 		drone.rotation.y += -left_value_Z * DRONE_ROTSPEED * delta
@@ -37,24 +30,13 @@ func _physics_process(delta):
 			sound.pitch_scale = lerp(sound.pitch_scale,1.0,0.1)
 		else:
 			sound.pitch_scale += min(1.5,left_value_X * delta)
-		
-		#last_positionY = drone.position
 	
-		#print("CURRENT:", current_position)
-		#print("LAST___:", last_positionY)
-		#print("VEL:", droneVel)
-		#upSpeed = lerp(upSpeed,MAX_SPEED,left_value_X * delta)
-		
-		
-
 func _process(delta):
 	rotation.x = 0.3 - left_value_X * 0.8
 	rotation.z = -left_value_Z * 0.8
 	
-	
-
 
 func _on_left__controller_button_pressed(name):
 	if name == "trigger_click":
-		drone.position = Vector3(0,1.148,-2.046) # subject to change
+		drone.position = Vector3(0,1.148,-2.046) 
 		drone.rotation = Vector3(0,0,0)

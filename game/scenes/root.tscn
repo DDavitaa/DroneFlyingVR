@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://cgt76jmb7odyh"]
+[gd_scene load_steps=75 format=3 uid="uid://cgt76jmb7odyh"]
 
 [ext_resource type="Script" path="res://scenes/root.gd" id="1_drtle"]
 [ext_resource type="PackedScene" uid="uid://bjh6o1j0m2p0u" path="res://models/drone.fbx" id="1_sdhml"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://scenes/droneSound.gd" id="10_hwaxo"]
 [ext_resource type="PackedScene" uid="uid://dlg5g0b3hj2k6" path="res://models/controller_right.fbx" id="10_lclre"]
 [ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="10_v7mpg"]
+[ext_resource type="Script" path="res://scenes/droneCam.gd" id="11_2n5uf"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="12_rovoh"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="13_b0n03"]
 [ext_resource type="Script" path="res://scenes/joystick_right.gd" id="13_i7nh4"]
@@ -103,6 +104,9 @@ node_connections = [&"output", 0, &"Transition", &"Transition", 0, &"close", &"T
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iu3bh"]
 radius = 0.12013
 height = 0.422094
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_lsl4q"]
+viewport_path = NodePath("drone - PickableObject/SubViewport")
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_hmnug"]
 
@@ -522,6 +526,14 @@ volume_db = -12.77
 autoplay = true
 script = ExtResource("10_hwaxo")
 
+[node name="SubViewport" type="SubViewport" parent="drone - PickableObject"]
+
+[node name="Camera3D" type="Camera3D" parent="drone - PickableObject/SubViewport"]
+transform = Transform3D(-1, 2.55599e-08, -8.36028e-08, 0, 0.956305, 0.292372, 8.74228e-08, 0.292372, -0.956305, 0, 0.976813, -2.0342)
+current = true
+fov = 89.8
+script = ExtResource("11_2n5uf")
+
 [node name="headset - PickableObject" parent="." instance=ExtResource("10_v7mpg")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.950722, 1.22941, -0.315593)
 
@@ -566,6 +578,12 @@ shape = SubResource("CapsuleShape3D_iu3bh")
 current = true
 
 [node name="VRCommonShaderCache" parent="player - origin/player - camera" instance=ExtResource("3_go526")]
+
+[node name="droneMonitor" type="Node3D" parent="player - origin/player - camera"]
+
+[node name="Sprite3D" type="Sprite3D" parent="player - origin/player - camera/droneMonitor"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, -0.940303)
+texture = SubResource("ViewportTexture_lsl4q")
 
 [node name="player - audioListener" type="AudioListener3D" parent="player - origin"]
 
