@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://c4mac68g6eja"]
+[gd_scene load_steps=52 format=3 uid="uid://c4mac68g6eja"]
 
 [ext_resource type="Script" path="res://scenes/root.gd" id="1_drtle"]
 [ext_resource type="PackedScene" uid="uid://bjh6o1j0m2p0u" path="res://models/drone.fbx" id="1_sdhml"]
@@ -27,21 +27,36 @@
 [ext_resource type="Script" path="res://models/controller_pickup.gd" id="23_epxg3"]
 [ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="25_h1p6r"]
 [ext_resource type="PackedScene" uid="uid://cnbs2in0g0ig0" path="res://models/buildingone.fbx" id="26_fpqdr"]
+[ext_resource type="PackedScene" uid="uid://b5htwe1u80syx" path="res://models/map.fbx" id="27_xmgdr"]
+[ext_resource type="PackedScene" uid="uid://rau4jh17e8ai" path="res://models/buildingfourfbx.fbx" id="28_44t3t"]
 [ext_resource type="PackedScene" uid="uid://m8qidoo336ro" path="res://models/buildingtwo.fbx" id="28_w0s0o"]
 [ext_resource type="PackedScene" uid="uid://cm74oyyhethyp" path="res://models/buildingthree.fbx" id="29_bsf6l"]
-[ext_resource type="PackedScene" uid="uid://dkqkwkwxg016b" path="res://models/buildingfour.fbx" id="30_a676w"]
-[ext_resource type="PackedScene" uid="uid://cw3rqav7vmn47" path="res://models/buildings.blend" id="31_e2ttn"]
-[ext_resource type="Shader" path="res://scenes/building1.gdshader" id="32_dflw6"]
+[ext_resource type="PackedScene" uid="uid://c6f0hd3k2l41l" path="res://models/mainbuilding.fbx" id="31_xdt1h"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_yxwyt"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nt78p"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0, 0, 0, 1)
+sky_curve = 0.332871
+sky_energy_multiplier = 0.0
+sky_cover_modulate = Color(0, 0, 0, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_curve = 7.54634e-05
 
 [sub_resource type="Sky" id="Sky_e0nf4"]
-sky_material = SubResource("PanoramaSkyMaterial_yxwyt")
+sky_material = SubResource("ProceduralSkyMaterial_nt78p")
 
 [sub_resource type="Environment" id="Environment_b5eov"]
 background_mode = 2
 sky = SubResource("Sky_e0nf4")
 ambient_light_sky_contribution = 0.46
+glow_enabled = true
+glow_normalized = true
+glow_strength = 2.0
+glow_blend_mode = 4
+glow_hdr_threshold = 1.77
+glow_hdr_scale = 1.89
+glow_hdr_luminance_cap = 10.0
+glow_map_strength = 0.6
 adjustment_enabled = true
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ma3fo"]
@@ -97,30 +112,19 @@ roughness = 0.15
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d1oml"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_dbljb"]
-frequency = 0.05
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pksk5"]
+emission_enabled = true
+emission = Color(0.74902, 0.545098, 0, 1)
+emission_energy_multiplier = 16.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_obnr0"]
-noise = SubResource("FastNoiseLite_dbljb")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t0xf6"]
-albedo_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
-normal_enabled = true
-normal_scale = 0.28
-normal_texture = SubResource("NoiseTexture2D_obnr0")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p8lmg"]
-render_priority = 0
-shader = ExtResource("32_dflw6")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2r4bq"]
-next_pass = SubResource("ShaderMaterial_p8lmg")
+[sub_resource type="BoxMesh" id="BoxMesh_yq7ui"]
+material = SubResource("StandardMaterial3D_pksk5")
 
 [node name="root" type="Node3D"]
 script = ExtResource("1_drtle")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2572, 14.7566, 7.3881)
+transform = Transform3D(0.14503, 0, 0.989427, 0, 1, 0, -0.989427, 0, 0.14503, 4.51648, 2.36869, 10.0974)
 script = ExtResource("2_f4yp5")
 
 [node name="HDRI - WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -134,12 +138,15 @@ shadow_blur = 0.435
 
 [node name="Ground - StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, 0)
+visible = false
 
 [node name="Ground - CollisionShape3D" type="CollisionShape3D" parent="Ground - StaticBody3D"]
+visible = false
 shape = SubResource("WorldBoundaryShape3D_ma3fo")
 
 [node name="Ground - MeshInstance3D" type="MeshInstance3D" parent="Ground - StaticBody3D"]
-transform = Transform3D(1.745, 0, 0, 0, 1.745, 0, 0, 0, 1.745, 0, 0, 0)
+transform = Transform3D(1.745, 0, 0, 0, 1.745, 0, 0, 0, 1.745, 0, 0, 3.24568)
+visible = false
 mesh = SubResource("PlaneMesh_ri7pf")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_1ifvy")
@@ -358,42 +365,90 @@ mesh = SubResource("CylinderMesh_hmnug")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_dsgym")
 
-[node name="buildingone" parent="." instance=ExtResource("26_fpqdr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.87903, 5.81006, 4.31349)
+[node name="map" parent="." instance=ExtResource("27_xmgdr")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18.5646, -1.49012e-06, 0.738807)
 
-[node name="BuildingOne" parent="buildingone/RootNode" index="0"]
-surface_material_override/0 = SubResource("StandardMaterial3D_t0xf6")
-
-[node name="StaticBody3D" parent="buildingone/RootNode/BuildingOne" index="1"]
+[node name="StaticBody3D" parent="map/RootNode/Ground" index="0"]
 visible = false
 
-[node name="buildingthree" parent="." instance=ExtResource("29_bsf6l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.1171, 4.23036, -18.1968)
+[node name="buildingfourfbx" parent="." instance=ExtResource("28_44t3t")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 7.11051, -7.45058e-07, 23.4764)
 
-[node name="buildingfour" parent="." instance=ExtResource("30_a676w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.0788, 4.06606, -9.69031)
+[node name="buildingfourfbx2" parent="." instance=ExtResource("28_44t3t")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -17.0342, -7.45058e-07, -34.5061)
+
+[node name="buildingfourfbx3" parent="." instance=ExtResource("28_44t3t")]
+transform = Transform3D(-0.144196, 0, -2.99653, 0, 3, 0, 2.99653, 0, -0.144196, 53.3548, -7.45058e-07, -4.32164)
+
+[node name="BuildingFour" parent="buildingfourfbx3/RootNode" index="0"]
+transform = Transform3D(-0.183429, -69.8351, 0.00306777, -2.08126e-06, 0.00306361, 69.8354, -69.8352, 0.183419, -1.66499e-05, -0.048831, 0, -0.176582)
+
+[node name="BuildingTwoTwo" parent="buildingfourfbx3/RootNode/BuildingFour" index="25"]
+transform = Transform3D(1, -3.72529e-09, 0, 3.72529e-09, 1, 0, 0, 3.63798e-12, 1, 0, -0.0797733, -3.41061e-13)
+
+[node name="buildingone" parent="." instance=ExtResource("26_fpqdr")]
+transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 29.2026, 10, -34.1548)
+
+[node name="buildingone2" parent="." instance=ExtResource("26_fpqdr")]
+transform = Transform3D(2.99973, 0, -0.0402111, 0, 3, 0, 0.0402111, 0, 2.99973, -16.6322, 10, -1.38371)
+
+[node name="CollisionShape3D" parent="buildingone2/RootNode/BuildingOne/StaticBody3D" index="0"]
+transform = Transform3D(1, 2.98023e-08, 1.42109e-14, -2.98023e-08, 1, 2.84217e-14, 0, -1.77636e-15, 1, 0, 0, 0)
+
+[node name="buildingone3" parent="." instance=ExtResource("26_fpqdr")]
+transform = Transform3D(-0.0376976, 0, -2.49972, 0, 2.5, 0, 2.49972, 0, -0.0376976, 53.2016, 8.66223, 35.4188)
+
+[node name="CollisionShape3D" parent="buildingone3/RootNode/BuildingOne/StaticBody3D" index="0"]
+transform = Transform3D(1, 3.07336e-08, 1.42109e-14, -3.07336e-08, 1, 2.84217e-14, 0, 0, 1, 0, 0, 0)
+
+[node name="buildingone4" parent="." instance=ExtResource("26_fpqdr")]
+transform = Transform3D(0.0715052, 0, 2.49898, 0, 2.5, 0, -2.49898, 0, 0.0715052, -0.55452, 8.66223, 35.4188)
+
+[node name="CollisionShape3D" parent="buildingone4/RootNode/BuildingOne/StaticBody3D" index="0"]
+transform = Transform3D(1, 3.07336e-08, 1.42109e-14, -3.07336e-08, 1, 2.84217e-14, 0, 0, 1, 0, 0, 0)
 
 [node name="buildingtwo" parent="." instance=ExtResource("28_w0s0o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.7834, 4.28802, -10.8211)
+transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, -16.6315, 8.82784, -10.2537)
 
-[node name="buildings" parent="." instance=ExtResource("31_e2ttn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.8231, 0, 44.0358)
+[node name="buildingtwo2" parent="." instance=ExtResource("28_w0s0o")]
+transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, 32.1959, 8.82784, -22.6111)
 
-[node name="BuildingOne" parent="buildings" index="0"]
-visible = false
+[node name="buildingtwo3" parent="." instance=ExtResource("28_w0s0o")]
+transform = Transform3D(-3.49901, 0, -0.0831922, 0, 3.5, 0, 0.0831922, 0, -3.49901, 24.0655, 8.82784, -22.6111)
 
-[node name="BuildingFour" parent="buildings" index="1"]
-visible = false
+[node name="buildingtwo4" parent="." instance=ExtResource("28_w0s0o")]
+transform = Transform3D(-2.99621, 0.132898, -0.0712375, 0.132861, 2.99706, 0.00315888, 0.0713075, 4.5402e-09, -2.99915, 40.2963, 7.62271, 35.252)
 
-[node name="BuildingThree" parent="buildings" index="2"]
-visible = false
+[node name="buildingtwo5" parent="." instance=ExtResource("28_w0s0o")]
+transform = Transform3D(-2.99621, 0.132898, -0.0712375, 0.132861, 2.99706, 0.00315888, 0.0713075, 4.5402e-09, -2.99915, -16.9182, 7.24484, 35.6384)
 
-[node name="BuildingTwo" parent="buildings" index="3"]
-transform = Transform3D(1, 0, 0, 0, 4.00547, 0, 0, 0, 1, 0, 6.89612, 0)
-material_override = SubResource("StandardMaterial3D_2r4bq")
+[node name="buildingtwo6" parent="." instance=ExtResource("28_w0s0o")]
+transform = Transform3D(-2.39697, 0.106319, -0.05699, 0.106289, 2.39764, 0.00252711, 0.057046, 3.35276e-09, -2.39932, 52.4345, 5.46398, 3.35838)
 
-[node name="CollisionShape3D" parent="buildings/BuildingTwo/StaticBody3D" index="0"]
-visible = false
+[node name="mainbuilding" parent="." instance=ExtResource("31_xdt1h")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 25.4444, 0, 1.5814)
+
+[node name="buildingthree" parent="." instance=ExtResource("29_bsf6l")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -16.8743, 6.23728, 11.7433)
+
+[node name="buildingthree2" parent="." instance=ExtResource("29_bsf6l")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -1.28916, 6.23728, 24.0717)
+
+[node name="buildingthree3" parent="." instance=ExtResource("29_bsf6l")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 52.4542, 6.23728, 24.0717)
+
+[node name="buildingthree4" parent="." instance=ExtResource("29_bsf6l")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 51.4616, 6.23728, -22.3262)
+
+[node name="buildingthree5" parent="." instance=ExtResource("29_bsf6l")]
+transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, -16.9652, 6.90641, -22.3028)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.4259, 4.66766, 14.4974)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(0.703973, 0, 0, 0, 0.340797, 0, 0, 0, 0.581158, 0, 0, 0)
+mesh = SubResource("BoxMesh_yq7ui")
 
 [connection signal="button_pressed" from="player - origin/Left - controller" to="player - origin/Left - controller/controller_left" method="_on_left__controller_button_pressed"]
 [connection signal="input_vector2_changed" from="player - origin/Left - controller" to="player - origin/Left - controller/controller_left" method="_on_left__controller_input_vector_2_changed"]
@@ -405,6 +460,23 @@ visible = false
 [connection signal="picked_up" from="ctrllr_right - PickableObject" to="ctrllr_right - PickableObject/controller_right" method="_on_ctrllr_right__pickable_object_picked_up"]
 
 [editable path="headset - PickableObject/headset - CollisionPolygon3D/headset fbx"]
+[editable path="map"]
+[editable path="buildingfourfbx"]
+[editable path="buildingfourfbx2"]
+[editable path="buildingfourfbx3"]
 [editable path="buildingone"]
+[editable path="buildingone2"]
+[editable path="buildingone3"]
+[editable path="buildingone4"]
+[editable path="buildingtwo"]
+[editable path="buildingtwo2"]
+[editable path="buildingtwo3"]
+[editable path="buildingtwo4"]
+[editable path="buildingtwo5"]
+[editable path="buildingtwo6"]
+[editable path="mainbuilding"]
 [editable path="buildingthree"]
-[editable path="buildings"]
+[editable path="buildingthree2"]
+[editable path="buildingthree3"]
+[editable path="buildingthree4"]
+[editable path="buildingthree5"]
