@@ -7,7 +7,7 @@ var ACCELERATION = 0.5
 
 var droneVel = 0.0
 var upSpeed = 0.0
-@export var DRONE_SPEED_Y = 3.0
+@export var DRONE_SPEED_Y = 4.0
 @export var DRONE_ROTSPEED = 2.0
 
 var left_value_Z = 0.0
