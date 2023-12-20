@@ -1,6 +1,6 @@
 extends Node3D
 
-@onready var path = get_node("/root/root/Car1Path3D/PathFollow3D")
+@onready var path = get_node("/root/root/Car2Path3D/PathFollow3D")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
