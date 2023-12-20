@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://cgt76jmb7odyh"]
+[gd_scene load_steps=81 format=3 uid="uid://cgt76jmb7odyh"]
 
 [ext_resource type="Script" path="res://scenes/root.gd" id="1_drtle"]
 [ext_resource type="PackedScene" uid="uid://bjh6o1j0m2p0u" path="res://models/drone.fbx" id="1_sdhml"]
@@ -20,14 +20,16 @@
 [ext_resource type="PackedScene" uid="uid://dlg5g0b3hj2k6" path="res://models/controller_right.fbx" id="10_lclre"]
 [ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="10_v7mpg"]
 [ext_resource type="Script" path="res://scenes/droneCam.gd" id="11_2n5uf"]
+[ext_resource type="Script" path="res://scenes/drone.gd" id="11_a52qi"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="12_rovoh"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="13_b0n03"]
 [ext_resource type="Script" path="res://scenes/joystick_right.gd" id="13_i7nh4"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="13_trql2"]
 [ext_resource type="Animation" uid="uid://db62hs5s4n2b3" path="res://addons/godot-xr-tools/hands/animations/left/Grip 4.res" id="14_vkyw8"]
+[ext_resource type="PackedScene" uid="uid://cwvafle0suoxs" path="res://scenes/particles.tscn" id="15_4jxor"]
+[ext_resource type="Script" path="res://scenes/headset.gd" id="15_hdmwk"]
 [ext_resource type="Script" path="res://scenes/controllers.gd" id="17_elod8"]
 [ext_resource type="PackedScene" uid="uid://dfq13qpr2xhcc" path="res://models/headset.glb" id="20_wnw38"]
-[ext_resource type="Script" path="res://models/headset.gd" id="21_d6gug"]
 [ext_resource type="PackedScene" uid="uid://hdphbgymkgsw" path="res://models/table.fbx" id="22_guqu3"]
 [ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="25_h1p6r"]
 [ext_resource type="Script" path="res://scenes/controller_left_Pickable.gd" id="26_e343c"]
@@ -38,8 +40,8 @@
 [ext_resource type="PackedScene" uid="uid://m8qidoo336ro" path="res://models/buildingtwo.fbx" id="28_w0s0o"]
 [ext_resource type="PackedScene" uid="uid://cm74oyyhethyp" path="res://models/buildingthree.fbx" id="29_bsf6l"]
 [ext_resource type="PackedScene" uid="uid://c6f0hd3k2l41l" path="res://models/mainbuilding.fbx" id="31_xdt1h"]
-[ext_resource type="Script" path="res://models/Car2.gd" id="33_3eq3c"]
 [ext_resource type="Script" path="res://scenes/Car1.gd" id="33_en6u8"]
+[ext_resource type="Script" path="res://scenes/Car2.gd" id="40_gfygt"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_0sexn"]
 panorama = ExtResource("3_r67ic")
@@ -496,7 +498,7 @@ shape = SubResource("BoxShape3D_l5fid")
 mesh = SubResource("BoxMesh_qye2y")
 
 [node name="drone - PickableObject" parent="." instance=ExtResource("10_v7mpg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.148, -2.046)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.712356, -2.046)
 gravity_scale = 0.0
 press_to_hold = false
 
@@ -524,6 +526,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.346723, 0.0217366, 0)
 
 [node name="drone fbx" parent="drone - PickableObject" instance=ExtResource("1_sdhml")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, -0.00923026, 0)
+script = ExtResource("11_a52qi")
 
 [node name="bulletSpawn" type="Node3D" parent="drone - PickableObject"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0879287, 0.197644)
@@ -543,6 +546,8 @@ current = true
 fov = 89.8
 script = ExtResource("11_2n5uf")
 
+[node name="Node3D" parent="drone - PickableObject" instance=ExtResource("15_4jxor")]
+
 [node name="headset - PickableObject" parent="." instance=ExtResource("10_v7mpg")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.950722, 1.22941, -0.315593)
 
@@ -557,7 +562,7 @@ polygon = PackedVector2Array(-0.11897, 0.116391, -0.159507, 0.0431159, -0.135178
 
 [node name="headset fbx" parent="headset - PickableObject/headset - CollisionPolygon3D" instance=ExtResource("20_wnw38")]
 transform = Transform3D(-1.26763e-08, 0, 0.29, 0, 0.29, 0, -0.29, 0, -1.26763e-08, 0, 0.0305362, 0)
-script = ExtResource("21_d6gug")
+script = ExtResource("15_hdmwk")
 
 [node name="Skeleton3D" parent="headset - PickableObject/headset - CollisionPolygon3D/headset fbx/control_rig" index="0"]
 bones/0/rotation = Quaternion(0, 0, 0, 1)
@@ -575,6 +580,7 @@ parameters/Transition/current_index = 0
 
 [node name="Timer" type="Timer" parent="headset - PickableObject"]
 wait_time = 1.5
+one_shot = true
 
 [node name="player - origin" type="XROrigin3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.102177, 1.03396, 0.105351)
@@ -592,9 +598,10 @@ current = true
 [node name="VRCommonShaderCache" parent="player - origin/player - camera" instance=ExtResource("3_go526")]
 
 [node name="droneMonitor" type="Node3D" parent="player - origin/player - camera"]
+visible = false
 
 [node name="Sprite3D" type="Sprite3D" parent="player - origin/player - camera/droneMonitor"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, -0.940303)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 2, 0, 0, -0.940303)
 texture = SubResource("ViewportTexture_lsl4q")
 
 [node name="player - audioListener" type="AudioListener3D" parent="player - origin"]
@@ -1216,7 +1223,7 @@ curve = SubResource("Curve3D_tmwuc")
 transform = Transform3D(0.999905, 5.70266e-07, 0.0137904, 5.68434e-14, 1, -4.13523e-05, -0.0137904, 4.13483e-05, 0.999905, -8.04475, 0.0063324, 2.36296)
 
 [node name="Node3D" type="Node3D" parent="Car2Path3D/PathFollow3D"]
-script = ExtResource("33_3eq3c")
+script = ExtResource("40_gfygt")
 
 [node name="Car2" type="MeshInstance3D" parent="Car2Path3D/PathFollow3D/Node3D"]
 transform = Transform3D(60, 5.96046e-08, 0, 3.63798e-12, -2.62307e-06, 60, 5.96046e-08, -60, -2.6226e-06, 0, 0.859979, -3.55244e-05)
@@ -1229,7 +1236,7 @@ mesh = SubResource("ArrayMesh_i8djo")
 skeleton = NodePath("")
 
 [node name="Node3D2" type="Node3D" parent="Car2Path3D/PathFollow3D"]
-script = ExtResource("33_3eq3c")
+script = ExtResource("40_gfygt")
 
 [node name="PathFollow3D2" type="PathFollow3D" parent="Car2Path3D"]
 transform = Transform3D(0.999905, 5.70266e-07, 0.0137904, 5.68434e-14, 1, -4.13523e-05, -0.0137904, 4.13483e-05, 0.999905, -8.04475, 0.0063324, 2.36296)
@@ -1460,6 +1467,7 @@ omni_range = 52.463
 [connection signal="finished" from="drone - PickableObject/AudioStreamPlayer3D" to="drone - PickableObject/AudioStreamPlayer3D" method="_on_finished"]
 [connection signal="dropped" from="headset - PickableObject" to="headset - PickableObject/headset - CollisionPolygon3D/headset fbx" method="_on_headset__pickable_object_dropped"]
 [connection signal="picked_up" from="headset - PickableObject" to="headset - PickableObject/headset - CollisionPolygon3D/headset fbx" method="_on_headset__pickable_object_picked_up"]
+[connection signal="timeout" from="headset - PickableObject/Timer" to="headset - PickableObject/headset - CollisionPolygon3D/headset fbx" method="_on_timer_timeout"]
 [connection signal="button_pressed" from="player - origin/Left - controller" to="player - origin/Left - controller/controller_left" method="_on_left__controller_button_pressed"]
 [connection signal="button_pressed" from="player - origin/Left - controller" to="player - origin/Left - controller/controller_left/joystick_origin" method="_on_left__controller_button_pressed"]
 [connection signal="input_vector2_changed" from="player - origin/Left - controller" to="player - origin/Left - controller/controller_left" method="_on_left__controller_input_vector_2_changed"]
