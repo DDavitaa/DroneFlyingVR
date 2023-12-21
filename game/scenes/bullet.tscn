@@ -18,5 +18,6 @@ shape = SubResource("CapsuleShape3D_l31kq")
 mesh = SubResource("CapsuleMesh_ljvyb")
 
 [node name="Timer" type="Timer" parent="."]
+autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

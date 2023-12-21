@@ -546,8 +546,11 @@ current = true
 fov = 89.8
 script = ExtResource("11_2n5uf")
 
-[node name="Node3D" parent="drone - PickableObject" instance=ExtResource("15_4jxor")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.225519, -0.0966679, -0.0302577)
+[node name="particlesLeft" parent="drone - PickableObject" instance=ExtResource("15_4jxor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.225519, -0.0421035, -0.0302577)
+
+[node name="particlesRight" parent="drone - PickableObject" instance=ExtResource("15_4jxor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.229592, -0.0421035, -0.0302577)
 
 [node name="headset - PickableObject" parent="." instance=ExtResource("10_v7mpg")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.950722, 1.22941, -0.315593)
