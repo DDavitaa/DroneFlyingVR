@@ -4,8 +4,6 @@ extends Node3D
 
 @onready var drone = $"../../../../drone - PickableObject"
 @onready var sound = $"../../../../drone - PickableObject/AudioStreamPlayer3D"
-@onready var particlesRight = $"../../../../drone - PickableObject/particlesRight/GPUParticles3D"
-@onready var particlesLeft = $"../../../../drone - PickableObject/particlesLeft/GPUParticles3D"
 
 @export var DRONE_SPEED_Y = 3.0
 @export var DRONE_ROTSPEED = 2.0
@@ -27,14 +25,9 @@ func _physics_process(delta):
 		
 			if left_value_X == 0:
 				sound.pitch_scale = lerp(sound.pitch_scale,1.0,0.1)
-				
-				particlesLeft.amount = lerp(particlesLeft.amount,50,0.1)
 			else:
 				sound.pitch_scale += min(1.5,left_value_X * delta)
-				
-				particlesLeft.amount = 50 + left_value_X*3
-				
-				
+				sound.pitch_scale = clamp(sound.pitch_scale, 0.8,1.2)
 			
 	
 func _process(delta):

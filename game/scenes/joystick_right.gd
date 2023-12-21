@@ -29,8 +29,8 @@ func _physics_process(delta):
 		
 
 func _process(delta):
-	rotation.x = 0.3 - right_value_X * 0.8
-	rotation.z = -right_value_Z * 0.8
+	rotation.x = 0.3 - right_value_Z * 0.8
+	rotation.z = -right_value_X * 0.8
 	
 
 func _on_right__controller_button_pressed(name):
