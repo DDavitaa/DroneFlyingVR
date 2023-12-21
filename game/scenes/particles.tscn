@@ -11,16 +11,17 @@ curve = SubResource("Curve_m5dga")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jxpgh"]
 emission_shape = 1
 emission_sphere_radius = 0.05
-direction = Vector3(0, 1, 0)
-initial_velocity_min = 2.0
-initial_velocity_max = 2.0
+direction = Vector3(0, -1, 0)
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
 angular_velocity_min = -341.05
 angular_velocity_max = 720.0
 tangential_accel_min = 5.0
 tangential_accel_max = 5.0
 damping_max = 5.0
-scale_min = 0.01
-scale_max = 0.02
+scale_min = 0.0
+scale_max = 0.03
 scale_curve = SubResource("CurveTexture_rbn27")
 color = Color(1, 0, 0.176471, 1)
 hue_variation_min = -0.33
@@ -35,8 +36,8 @@ material = SubResource("StandardMaterial3D_yv7uq")
 [node name="Node3D" type="Node3D"]
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-amount = 30
-lifetime = 1.5
+amount = 50
+lifetime = 0.43
 preprocess = 1.0
 randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_jxpgh")
