@@ -1,45 +1,40 @@
 extends Node3D
 
+# get node of left controller on the table
 @onready var snapped_right = get_node("../controller_right")
-@onready var snapped_left = get_node("../controller_left")
 
+# get node of hand model
 @onready var hand_right = get_node("../../player - origin/Right - controller/RightHand - model")
-@onready var hand_left = get_node("../../player - origin/Left - controller/LeftHand - model")
 
+# get node of controller on left hand
 @onready var controller_onRight = get_node("../../player - origin/Right - controller/controller_right")
-@onready var controller_onLeft = get_node("../../player - origin/Left - controller/controller_left")
 
+# get nodes of right stick and player rotation
 @onready var turningFunction = controller_onRight.get_node("../MovementTurn")
-
 @onready var rightJoystick = controller_onRight.get_node("joystick_origin")
 
+# this variable is to cancel out a bug that picks up the controller when game started
 var offset_right = 0
-var offset_left = 0
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
-
 func _on_ctrllr_right__pickable_object_picked_up(pickable):
-	if(offset_right == 2):
+	if(offset_right == 2): # sets offset back to 1 for next time picked up
 		offset_right = 1	
-	elif(offset_right == 1):
+	elif(offset_right == 1): # if picked up
 		snapped_right.visible = false
 		hand_right.visible = false
 		controller_onRight.visible = true
 		rightJoystick.enabled = true
 		turningFunction.enabled = false
 		offset_right = 2
-	else:
+	else: # fixes said bug
 		offset_right = 1
 	
 
 func _on_ctrllr_right__pickable_object_dropped(pickable):
-	pass # Replace with function body.
+	pass

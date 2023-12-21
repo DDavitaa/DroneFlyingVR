@@ -1,13 +1,12 @@
 extends Camera3D
 
+# get node for drone
 @onready var drone = $"../../"
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	# aligns position and rotation with drone, adding extra vectors to adjust the camera
 	position = drone.position + Vector3(0,-0.1,0)
 	rotation = drone.rotation + Vector3(-0.5, 3.15, 0)
