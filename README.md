@@ -8,7 +8,7 @@ Class Group: TU856, Game Engines 1
 
 Video:
 
-[![YouTube](https://imgur.com/a/fiBoPRt)](https://www.youtube.com/watch?v=sJX0uuLm0p8)
+[![YouTube](https://cdn.discordapp.com/attachments/918310097292243024/1187510121182539939/Screenshot_2023-12-21_213936.png?ex=659725fb&is=6584b0fb&hm=46872b10538de8b26a34369d0230fc14f9822495f25caa7104e5d15fc99cd389&)](https://www.youtube.com/watch?v=sJX0uuLm0p8)
 
 # Description of the project
 
